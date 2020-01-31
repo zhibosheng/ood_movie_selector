@@ -17,6 +17,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
+    <flyway.version>6.0.3</flyway.version>
   </properties>
 
   <parent>
@@ -138,7 +139,7 @@
               <schema>public</schema>
             </schemas>
           </configuration>
-        </plugin>
+      </plugin>
       </plugins>
     </pluginManagement>
   </build>
