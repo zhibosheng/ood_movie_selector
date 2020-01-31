@@ -131,9 +131,9 @@
           <version>${flyway.version}</version>
           <configuration>
             <driver>org.postgresql.Driver</driver>
-            <url>jdbc:postgresql://localhost:5431/twitter</url>
+            <url>jdbc:postgresql://localhost:5433/movie_selector_db</url>
             <user>admin</user>
-            <password>password</password>
+            <password>12345</password>
             <schemas>
               <schema>public</schema>
             </schemas>
