@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 public class Voting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "voting_id")
     private long votingId;
 
     @Column(name = "start_time")

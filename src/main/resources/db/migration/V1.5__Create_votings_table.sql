@@ -3,5 +3,5 @@ create table "votings"(
 	start_time     TIMESTAMP NOT NULL,
 	end_time       TIMESTAMP NOT NULL,
 	voting_result  TEXT,
-	PRIMARY KEY(voting_id), 
+	PRIMARY KEY(voting_id)
 );

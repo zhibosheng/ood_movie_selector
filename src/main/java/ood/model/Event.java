@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "event_id")
     private long eventId;
 
     @Column(name = "voting_id")
@@ -20,6 +21,9 @@ public class Event {
 
     @Column(name = "show_time")
     private OffsetDateTime showTime;
+
+    @Column(name = "movie_decision")
+    private String movieDecision;
 
     public long getEventId() {
         return eventId;
@@ -59,5 +63,13 @@ public class Event {
 
     public void setShowTime(OffsetDateTime showTime) {
         this.showTime = showTime;
+    }
+
+    public String getMovieDecision() {
+        return movieDecision;
+    }
+
+    public void setMovieDecision(String movieDecision) {
+        this.movieDecision = movieDecision;
     }
 }

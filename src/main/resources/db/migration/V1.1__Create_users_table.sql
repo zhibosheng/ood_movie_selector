@@ -4,5 +4,5 @@ create table "users"(
 	password   VARCHAR(255) NOT NULL,
 	email      VARCHAR(255) NOT NULL UNIQUE,
 	phone      VARCHAR(255) NOT NULL UNIQUE,
-	PRIMARY KEY(user_id),
+	PRIMARY KEY(user_id)
 );

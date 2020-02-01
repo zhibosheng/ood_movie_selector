@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
     private long groupId;
 
     @Column(name = "moderator_id")
