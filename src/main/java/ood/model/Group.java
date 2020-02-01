@@ -8,6 +8,7 @@ import java.util.List;
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "group_id")
     private long groupId;
 
     @ManyToOne(fetch = FetchType.LAZY)
