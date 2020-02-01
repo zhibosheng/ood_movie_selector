@@ -1,6 +1,7 @@
 package ood.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "groups")
@@ -9,11 +10,21 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long groupId;
 
-    @Column(name = "moderator_id")
-    private long moderatorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "moderator_id")
+    private User moderator;
 
-    @Column(name = "last_event_id")
-    private long lastEventId;
+    @OneToOne
+    @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
+    private Event lastEvent;
+
+    @ManyToMany(mappedBy = "joinGroups")
+    private List<User> users;
+
+    @OneToMany(mappedBy = "grouEventsp", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Event> events;
+
+
 
     public long getGroupId() {
         return groupId;
@@ -23,19 +34,47 @@ public class Group {
         this.groupId = groupId;
     }
 
-    public long getModeratorId() {
-        return moderatorId;
+    public User getModerator() {
+        return moderator;
     }
 
-    public void setModeratorId(long moderatorId) {
-        this.moderatorId = moderatorId;
+    public void setModerator(User moderator) {
+        this.moderator = moderator;
     }
 
-    public long getLastEventId() {
-        return lastEventId;
+    public Event getLastEvent() {
+        return lastEvent;
     }
 
-    public void setLastEventId(long lastEventId) {
-        this.lastEventId = lastEventId;
+    public void setLastEvent(Event lastEvent) {
+        this.lastEvent = lastEvent;
+    }
+
+    public List<User> getUsers() {
+        try{
+            int size = users.size();
+        }
+        catch (Exception e){
+            return null;
+        }
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Event> getEvents() {
+        try{
+            int size = events.size();
+        }
+        catch (Exception e){
+            return null;
+        }
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

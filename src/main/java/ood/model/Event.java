@@ -9,17 +9,23 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long eventId;
 
-    @Column(name = "voting_id")
-    private long votingId;
+    @OneToOne
+    @JoinColumn(name = "voting_id",referencedColumnName = "voting_id")
+    private Voting voting;
 
-    @Column(name = "group_id")
-    private long groupId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @Column(name = "create_time")
     private OffsetDateTime createTime;
 
     @Column(name = "show_time")
     private OffsetDateTime showTime;
+
+    @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE)
+    private Group lastEventGroup;
+
 
     public long getEventId() {
         return eventId;
@@ -29,20 +35,20 @@ public class Event {
         this.eventId = eventId;
     }
 
-    public long getVotingId() {
-        return votingId;
+    public Voting getVoting() {
+        return voting;
     }
 
-    public void setVotingId(long votingId) {
-        this.votingId = votingId;
+    public void setVoting(Voting voting) {
+        this.voting = voting;
     }
 
-    public long getGroupId() {
-        return groupId;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroupId(long groupId) {
-        this.groupId = groupId;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public OffsetDateTime getCreateTime() {
@@ -59,5 +65,13 @@ public class Event {
 
     public void setShowTime(OffsetDateTime showTime) {
         this.showTime = showTime;
+    }
+
+    public Group getLastEventGroup() {
+        return lastEventGroup;
+    }
+
+    public void setLastEventGroup(Group lastEventGroup) {
+        this.lastEventGroup = lastEventGroup;
     }
 }

@@ -18,6 +18,9 @@ public class Voting {
     @Column(name = "voting_result")
     private String votingResult;
 
+    @OneToOne(mappedBy = "", cascade = CascadeType.REMOVE)
+    private Event votingEvent;
+
     public long getVotingId() {
         return votingId;
     }
@@ -48,5 +51,13 @@ public class Voting {
 
     public void setVotingResult(String votingResult) {
         this.votingResult = votingResult;
+    }
+
+    public Event getVotingEvent() {
+        return votingEvent;
+    }
+
+    public void setVotingEvent(Event votingEvent) {
+        this.votingEvent = votingEvent;
     }
 }

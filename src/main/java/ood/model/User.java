@@ -1,6 +1,7 @@
 package ood.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -20,6 +21,15 @@ public class User {
 
     @Column(name = "phone")
     private String phone;
+
+    @OneToMany(mappedBy = "moderator", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Group> ownGroups;
+
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_groups",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "group_id") })
+    private List<Group> joinGroups;
 
     public long getUserId() {
         return userId;
@@ -59,5 +69,33 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Group> getOwnGroups() {
+        try{
+            int size = ownGroups.size();
+        }
+        catch (Exception e){
+            return null;
+        }
+        return ownGroups;
+    }
+
+    public void setOwnGroups(List<Group> ownGroups) {
+        this.ownGroups = ownGroups;
+    }
+
+    public List<Group> getJoinGroups() {
+        try{
+            int size = joinGroups.size();
+        }
+        catch (Exception e){
+            return null;
+        }
+        return joinGroups;
+    }
+
+    public void setJoinGroups(List<Group> joinGroups) {
+        this.joinGroups = joinGroups;
     }
 }
