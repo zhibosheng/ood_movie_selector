@@ -35,6 +35,6 @@ public class EventService {
 
     public Event changeShowTime(Event event,OffsetDateTime showTime){
         event.setShowTime(showTime);
-        eventDao.update(event);
+        return eventDao.update(event);
     }
 }
