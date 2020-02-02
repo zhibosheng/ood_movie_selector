@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "event_id")
     private long eventId;
 
     @OneToOne
@@ -22,6 +23,10 @@ public class Event {
 
     @Column(name = "show_time")
     private OffsetDateTime showTime;
+
+    //mingqian modify 2020-2-1
+    @Column(name = "movie_decision")
+    private String movieDecision;
 
     @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE)
     private Group lastEventGroup;
@@ -67,6 +72,15 @@ public class Event {
         this.showTime = showTime;
     }
 
+    //mingqian modify 2020-2-1
+    public String getMovieDecision(){
+        return movieDecision;
+    }
+    //mingqian modify 2020-2-1
+    public void setMovieDecision(String movieDecision) {
+        this.movieDecision = movieDecision;
+    }
+
     public Group getLastEventGroup() {
         return lastEventGroup;
     }
@@ -74,4 +88,5 @@ public class Event {
     public void setLastEventGroup(Group lastEventGroup) {
         this.lastEventGroup = lastEventGroup;
     }
+
 }
