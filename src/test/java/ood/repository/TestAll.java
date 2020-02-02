@@ -1,4 +1,4 @@
-package ood.UnitTest;
+package ood.repository;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

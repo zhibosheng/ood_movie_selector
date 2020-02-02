@@ -1,10 +1,7 @@
-package ood.UnitTest;
+package ood.repository;
 
 import ood.ApplicationBoot;
-import ood.model.User;
 import ood.model.Voting;
-import ood.repository.UserDaoImpl;
-import ood.repository.VotingDaoImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 

@@ -1,11 +1,7 @@
-package ood.UnitTest;
+package ood.repository;
 
 import ood.ApplicationBoot;
 import ood.model.Event;
-import ood.model.User;
-import ood.repository.EventDao;
-import ood.repository.EventDaoImpl;
-import ood.repository.UserDaoImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

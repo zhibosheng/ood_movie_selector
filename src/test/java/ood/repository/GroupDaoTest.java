@@ -1,10 +1,8 @@
-package ood.UnitTest;
+package ood.repository;
 
 import ood.ApplicationBoot;
 import ood.model.Group;
 import ood.model.User;
-import ood.repository.GroupDaoImpl;
-import ood.repository.UserDaoImpl;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,7 +41,7 @@ public class GroupDaoTest {
         userRecord2.setPassword("password");
         UserDao.save(userRecord2);
 
-        groupRecord1.setModeratorId(userRecord1.getUserId());
+        groupRecord1.setModerator(userRecord1);
     }
     @Test
     public void save(){
@@ -53,9 +51,9 @@ public class GroupDaoTest {
 
     @Test
     public void update(){
-        groupRecord1.setModeratorId(userRecord2.getUserId());
+        groupRecord1.setModerator(userRecord2);
         groupDao.update(groupRecord1);
-        Assert.assertEquals(groupRecord1.getModeratorId(),userRecord2.getUserId());
+        Assert.assertEquals(groupRecord1.getModerator(),userRecord2);
     }
 
     @Test
