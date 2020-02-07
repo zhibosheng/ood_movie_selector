@@ -1,5 +1,6 @@
 package ood.repository;
 
+import ood.model.Group;
 import ood.model.User;
 import ood.util.HibernateUtil;
 import org.hibernate.Session;
@@ -9,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Repository
@@ -69,5 +72,20 @@ public class UserDaoImpl implements UserDao {
 
         return deletedCount >= 1 ? true : false;
 
+    }
+
+    public User getUserByName(String userName){
+        User user = new User();
+        return user;
+    };
+
+    public List<Group> getOwnGroups(User user){
+        List<Group> list = new ArrayList<Group>();
+        return list;
+    }
+
+    public List<Group> getJoinGroups(User user){
+        List<Group> list = new ArrayList<Group>();
+        return list;
     }
 }
