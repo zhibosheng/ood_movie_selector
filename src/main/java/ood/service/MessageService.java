@@ -10,8 +10,9 @@ import com.amazonaws.services.simpleemail.model.Content;
 import com.amazonaws.services.simpleemail.model.Destination;
 import com.amazonaws.services.simpleemail.model.Message;
 import com.amazonaws.services.simpleemail.model.SendEmailRequest;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class MessageService {
     // Replace sender@example.com with your "From" address.
     // This address must be verified with Amazon SES.
@@ -39,7 +40,7 @@ public class MessageService {
 //    static final String TEXTBODY = "This email was sent through Amazon SES "
 //            + "using the AWS SDK for Java.";
 
-    public static void sendEmail(String TO, String SUBJECT, String HTMLBODY, String TEXTBODY) throws IOException {
+    public void sendEmail(String TO, String SUBJECT, String HTMLBODY, String TEXTBODY) throws IOException {
 
         try {
             AmazonSimpleEmailService client =
@@ -69,24 +70,5 @@ public class MessageService {
             System.out.println("The email was not sent. Error message: "
                     + ex.getMessage());
         }
-    }
-
-    public static void main(String[] args){
-        String TO = "zhibosheng@gwu.edu";
-        String SUBJECT = "Amazon SES test (AWS SDK for Java)";
-        String HTMLBODY = "<h1>Amazon SES test (AWS SDK for Java)</h1>"
-                + "<p>This email was sent with <a href='https://aws.amazon.com/ses/'>"
-                + "Amazon SES</a> using the <a href='https://aws.amazon.com/sdk-for-java/'>"
-                + "AWS SDK for Java</a>";
-        String TEXTBODY = "This email was sent through Amazon SES "
-                + "using the AWS SDK for Java.";
-        try{
-            sendEmail(TO,SUBJECT,HTMLBODY,TEXTBODY);
-        } catch (Exception ex){
-            System.out.println("The email was not sent. Error message: "
-                    + ex.getMessage());
-        }
-
-
     }
 }
