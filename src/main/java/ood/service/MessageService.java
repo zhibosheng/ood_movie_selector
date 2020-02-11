@@ -45,13 +45,10 @@ public class MessageService {
         try {
             AmazonSimpleEmailService client =
                     AmazonSimpleEmailServiceClientBuilder.standard()
-
-
                             // Amazon SES.
                             .withRegion(Regions.US_EAST_1).build();
             SendEmailRequest request = new SendEmailRequest()
-                    .withDestination(
-                            new Destination().withToAddresses(TO))
+                    .withDestination(new Destination().withToAddresses(TO))
                     .withMessage(new Message()
                             .withBody(new Body()
                                     .withHtml(new Content()

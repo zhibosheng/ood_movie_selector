@@ -1,6 +1,7 @@
 package ood.controller;
 
 
+import ood.model.Group;
 import ood.model.User;
 import ood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -29,4 +32,27 @@ public class UserController {
     public boolean delete(@RequestBody User user){
         return userService.delete(user);
     }
+
+    //requestmapping
+    public List<Group> getOwnGroups(User user){ return userService.getOwnGroups(user);}
+
+    //requestmapping
+    public List<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
+
+    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User addOwnGroup(@RequestBody User user){ return userService.addOwnGroup(user);}
+
+    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User addOwnGroup(@RequestBody User user, Group group){ return userService.addOwnGroup(user,group);}
+
+    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User removeOwnGroup(@RequestBody User user, Group group){ return userService.removeOwnGroup(user,group);}
+
+    @RequestMapping(value = "/user/joinGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User joinGroup(@RequestBody User user, Group group){ return userService.joinGroup(user,group);}
+
+    @RequestMapping(value = "/user/joinGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User leaveGroup(@RequestBody User user, Group group){ return userService.leaveGroup(user,group);}
+
+
 }

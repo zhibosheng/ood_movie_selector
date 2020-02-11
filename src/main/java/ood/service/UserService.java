@@ -70,7 +70,7 @@ public class UserService {
         return userDao.update(user);
     }
 
-    public User LeaveGroup(User user,Group group){
+    public User leaveGroup(User user,Group group){
         List<Group> joinGroupsList = userDao.getJoinGroups(user);
         joinGroupsList.remove(group);
         user.setJoinGroups(joinGroupsList);

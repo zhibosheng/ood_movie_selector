@@ -21,6 +21,88 @@ import java.util.Map;
 @Service
 public class MovieAPIService {
 
+    public String findMovie(String movieName){
+        String ttId = null;
+        try{
+            HttpResponse<String> response = Unirest.get("https://imdb8.p.rapidapi.com/title/find?q="+movieName)
+                    .header("x-rapidapi-host", "imdb8.p.rapidapi.com")
+                    .header("x-rapidapi-key", "21fb4432b2msh936d28e4bc4b053p137a56jsn3fa00555b0d1")
+                    .asString();
+            JSONObject jsonObject = new JSONObject(response.getBody());
+            JSONArray results = (JSONArray)jsonObject.get("results");
+            JSONObject matchResult = (JSONObject) results.get(0);
+            ttId = matchResult.get("id").toString().split("/")[2];
+            System.out.println(ttId);
+            System.out.println("123");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ttId;
+    }
+
+    public List<String> getMoreLikeThis(String ttId){
+        List<String> moreLikeThisList = new ArrayList<>();
+        try{
+            HttpResponse<String> response = Unirest.get("https://imdb8.p.rapidapi.com/title/get-more-like-this?currentCountry=US&purchaseCountry=US&tconst="+ttId)
+                    .header("x-rapidapi-host", "imdb8.p.rapidapi.com")
+                    .header("x-rapidapi-key", "21fb4432b2msh936d28e4bc4b053p137a56jsn3fa00555b0d1")
+                    .asString();
+            JSONArray jsonArray = new JSONArray(response.getBody());
+            for (int i=0; i<jsonArray.length();i++){
+                String[] idArr = jsonArray.get(i).toString().split("/");
+                String titleId = idArr[2];
+                moreLikeThisList.add(titleId);
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return moreLikeThisList;
+    }
+
+    public HashMap getOverviewDetails(String ttId){
+        HashMap<String,Object> overviewDetails = new HashMap<>();
+        try{
+            HttpResponse<String> response = Unirest.get("https://imdb8.p.rapidapi.com/title/get-overview-details?currentCountry=US&tconst="+ttId)
+                    .header("x-rapidapi-host", "imdb8.p.rapidapi.com")
+                    .header("x-rapidapi-key", "21fb4432b2msh936d28e4bc4b053p137a56jsn3fa00555b0d1")
+                    .asString();
+//            System.out.println(response.getBody());
+            JSONObject jsonObject = new JSONObject(response.getBody());
+            JSONObject titleJson = (JSONObject) jsonObject.get("title");
+            String title = titleJson.get("title").toString();
+            String runningTimeInMinutes = titleJson.get("runningTimeInMinutes").toString();
+            JSONObject imageJson = (JSONObject) titleJson.get("image");
+            String urlStr = imageJson.get("url").toString();
+            URL imageUrl = new URL(urlStr);
+            String year = titleJson.get("year").toString();
+            String releaseDate = jsonObject.get("releaseDate").toString();
+            JSONObject ratings = (JSONObject) jsonObject.get("ratings");
+            String rating = ratings.get("rating").toString();
+            JSONArray genresJson = (JSONArray)jsonObject.get("genres");
+            List<String> genres = new ArrayList<>();
+            for (int i=0; i<genresJson.length();i++){
+                genres.add(genresJson.get(i).toString());
+            }
+            JSONObject plotOutline = (JSONObject) jsonObject.get("plotOutline");
+            String plotOutlineText = plotOutline.get("text").toString();
+            JSONObject plotSummary = (JSONObject) jsonObject.get("plotSummary");
+            String plotSummaryText = plotSummary.get("text").toString();
+            overviewDetails.put("title",title);
+            overviewDetails.put("runningTimeInMinutes",runningTimeInMinutes);
+            overviewDetails.put("imageUrl",imageUrl);
+            overviewDetails.put("year",year);
+            overviewDetails.put("releaseDate",releaseDate);
+            overviewDetails.put("rating",rating);
+            overviewDetails.put("genres",genres);
+            overviewDetails.put("plotOutlineText",plotOutlineText);
+            overviewDetails.put("plotSummaryText",plotSummaryText );
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return overviewDetails;
+    }
+
+
 //    public static void getMovie(){
 //        OkHttpClient client = new OkHttpClient();
 //

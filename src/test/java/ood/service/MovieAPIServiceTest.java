@@ -19,6 +19,30 @@ public class MovieAPIServiceTest {
     @Autowired
     MovieAPIService movieAPIService;
     String ttId = "tt0848228";
+
+    @Test
+    public void findMovie(){
+        String ttId=  movieAPIService.findMovie("Avengers");
+        System.out.println(ttId);
+        Assert.assertNotNull(ttId);
+    }
+
+
+    @Test
+    public void getMoreLikeThis(){
+        List<String> moreLikeThisList =  movieAPIService.getMoreLikeThis(ttId);
+        Assert.assertNotNull(moreLikeThisList);
+    }
+
+
+    @Test
+    public void getOverviewDetails(){
+        HashMap<String,Object> overviewDetails= movieAPIService.getOverviewDetails(ttId);
+        System.out.println(overviewDetails);
+        System.out.println(overviewDetails.get("genres"));
+        Assert.assertNotNull(overviewDetails);
+    }
+
     @Test
     public void getVideoUrl(){
         URL url = movieAPIService.getTrailerUrl(ttId);
