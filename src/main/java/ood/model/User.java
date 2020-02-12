@@ -99,4 +99,6 @@ public class User {
     public void setJoinGroups(List<Group> joinGroups) {
         this.joinGroups = joinGroups;
     }
+
+
 }

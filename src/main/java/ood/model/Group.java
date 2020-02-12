@@ -22,7 +22,7 @@ public class Group {
     @ManyToMany(mappedBy = "joinGroups")
     private List<User> users;
 
-    @OneToMany(mappedBy = "groups", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Event> events;
 
 

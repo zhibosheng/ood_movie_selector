@@ -1,5 +1,6 @@
 package ood.repository;
 
+import ood.model.Event;
 import ood.model.Group;
 import ood.model.User;
 import ood.util.HibernateUtil;
@@ -9,6 +10,9 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class GroupDaoImpl implements GroupDao{
@@ -66,4 +70,10 @@ public class GroupDaoImpl implements GroupDao{
 
         return deletedCount >= 1 ? true : false;
     }
+
+    @Override
+    public List<Event> getHistory(Group group){
+        List<Event> list  = new ArrayList<Event>();
+        return list;
+    };
 }
