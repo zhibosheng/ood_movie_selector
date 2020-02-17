@@ -58,7 +58,7 @@ public class GroupDaoImpl implements GroupDao{
         try {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
-            Query<User> query = session.createQuery(hql);
+            Query<Group> query = session.createQuery(hql);
             query.setParameter("id",group.getGroupId());
             deletedCount = query.executeUpdate();
             transaction.commit();
@@ -72,8 +72,26 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
+    public List<Group> getAllGroups(){
+        String hql = "FROM Group ";
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            Query<Group> query = session.createQuery(hql);
+            return query.list();
+        }
+
+    }
+
+
+    @Override
     public List<Event> getHistory(Group group){
-        List<Event> list  = new ArrayList<Event>();
-        return list;
-    };
+        String hql = "FROM Event as e left join fetch e.group where e.group.groupId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Event> query = session.createQuery(hql);
+            query.setParameter("id", group.getGroupId());
+            return query.list();
+
+        }
+
+    }
 }

@@ -2,7 +2,6 @@ package ood.repository;
 
 
 import ood.model.Event;
-import ood.model.User;
 import ood.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -55,7 +54,7 @@ public class EventDaoImpl implements EventDao{
         try {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
-            Query<User> query = session.createQuery(hql);
+            Query<Event> query = session.createQuery(hql);
             query.setParameter("id",event.getEventId());
             deletedCount = query.executeUpdate();
             transaction.commit();

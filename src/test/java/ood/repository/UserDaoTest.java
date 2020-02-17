@@ -1,6 +1,7 @@
 package ood.repository;
 
 import ood.ApplicationBoot;
+import ood.model.Group;
 import ood.model.User;
 import org.junit.After;
 import org.junit.Assert;
@@ -11,6 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBoot.class)
 public class UserDaoTest {
@@ -18,6 +24,11 @@ public class UserDaoTest {
     private UserDaoImpl UserDao;
     private User userRecord1 = new User();
     private User userRecord2 = new User();
+    @Autowired
+    private GroupDaoImpl GroupDao;
+    private Group groupRecord1 = new Group();
+    private Group groupRecord2 = new Group();
+
     @Before
     public void setup() {
 
@@ -31,6 +42,12 @@ public class UserDaoTest {
         userRecord2.setPhone("2097896879");
         userRecord2.setPassword("password");
         UserDao.save(userRecord2);
+
+        groupRecord1.setModerator(userRecord2);
+        GroupDao.save(groupRecord1);
+        groupRecord2.setModerator(userRecord2);
+        GroupDao.save(groupRecord2);
+
     }
     @Test
     public void save(){
@@ -50,10 +67,40 @@ public class UserDaoTest {
        UserDao.delete(userRecord2);
     }
 
+    @Test
+    public void getUserByName(){
+        Assert.assertNotNull(UserDao.getUserByName("Bob"));
+    }
+
+    @Test
+    public void getOwnGroups(){
+        List<Group> list = UserDao.getOwnGroups(userRecord2);
+        Assert.assertEquals(2, list.size());
+    }
+
+    @Test
+    public void getJoinGroups(){
+        List<Group> l = new LinkedList<>();
+        l.add(groupRecord1);
+        l.add(groupRecord2);
+        userRecord2.setJoinGroups(l);
+        UserDao.update(userRecord2);
+
+        List<Group> list = UserDao.getJoinGroups(userRecord2);
+        Assert.assertEquals(2, list.size());
+    }
+
     @After
     public void cleanUp(){
+        if(UserDao.getOwnGroups(userRecord2)!=null) {
+            GroupDao.delete(groupRecord1);
+            GroupDao.delete(groupRecord2);
+        }
+
         UserDao.delete(userRecord1);
+
         if(userRecord2 != null) UserDao.delete(userRecord2);
+
     }
 
 }

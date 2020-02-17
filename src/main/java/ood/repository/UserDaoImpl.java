@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+    @Autowired
+    private GroupDao groupDao;
 
 
     @Override
@@ -74,18 +77,44 @@ public class UserDaoImpl implements UserDao {
 
     }
 
-    public User getUserByName(String userName){
-        User user = new User();
-        return user;
-    };
+    @Override
+    public User getUserByName(String userName) {
+        if (userName == null) return null;
 
-    public List<Group> getOwnGroups(User user){
-        List<Group> list = new ArrayList<Group>();
-        return list;
+        String hql = "FROM User where lower(userName) = :name";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("name", userName.toLowerCase());
+
+            User user = query.uniqueResult();
+            if (user != null) {
+                logger.debug(user.toString());
+            }
+            return user;
+        }
     }
 
-    public List<Group> getJoinGroups(User user){
-        List<Group> list = new ArrayList<Group>();
-        return list;
+    @Override
+    public List<Group> getOwnGroups(User user) {
+
+        String hql = "FROM Group as g left join fetch g.moderator where g.moderator.userId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Group> query = session.createQuery(hql);
+            query.setParameter("id", user.getUserId());
+            return query.list();
+
+        }
     }
-}
+
+        public List<Group> getJoinGroups (User user){
+            String hql = "SELECT g FROM Group g left JOIN fetch g.users u where u.userId = :id";
+
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                Query<Group> query = session.createQuery(hql);
+                query.setParameter("id", user.getUserId());
+                return query.list();
+            }
+        }
+    }

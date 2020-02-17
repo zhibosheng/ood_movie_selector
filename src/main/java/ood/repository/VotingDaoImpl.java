@@ -55,7 +55,7 @@ public class VotingDaoImpl implements VotingDao{
         try {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
-            Query<User> query = session.createQuery(hql);
+            Query<Voting> query = session.createQuery(hql);
             query.setParameter("id",voting.getVotingId());
             deletedCount = query.executeUpdate();
             transaction.commit();

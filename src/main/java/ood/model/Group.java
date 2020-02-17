@@ -15,7 +15,7 @@ public class Group {
     @JoinColumn(name = "moderator_id")
     private User moderator;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
     private Event lastEvent;
 

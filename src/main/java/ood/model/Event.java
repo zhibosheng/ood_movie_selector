@@ -10,7 +10,7 @@ public class Event {
     @Column(name = "event_id")
     private long eventId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "voting_id",referencedColumnName = "voting_id")
     private Voting voting;
 
@@ -28,7 +28,7 @@ public class Event {
     @Column(name = "movie_decision")
     private String movieDecision;
 
-    @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Group lastEventGroup;
 
 

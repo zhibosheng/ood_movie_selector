@@ -2,6 +2,8 @@ package ood.repository;
 
 import ood.ApplicationBoot;
 import ood.model.Event;
+import ood.model.Group;
+import ood.model.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,16 +24,34 @@ public class EventDaoTest {
     private Event eventRecord1 = new Event();
     private Event eventRecord2 = new Event();
 
+    @Autowired
+    private GroupDaoImpl groupDao;
+    private Group groupRecord1 = new Group();
+
+    @Autowired
+    private UserDaoImpl UserDao;
+    private User userRecord1 = new User();
+
     @Before
     public void setup() {
+        userRecord1.setUserName("Alice");
+        userRecord1.setEmail("12324@qq.com");
+        userRecord1.setPhone("2028538799");
+        userRecord1.setPassword("123456");
+        UserDao.save(userRecord1);
+
+        groupRecord1.setModerator(userRecord1);
+        groupDao.save(groupRecord1);
 
         eventRecord1.setCreateTime(OffsetDateTime.now());
+        eventRecord1.setGroup(groupRecord1);
         eventRecord1.setShowTime(OffsetDateTime.parse("2020-05-20T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         eventRecord1.setMovieDecision("Black Mirror");
 
-        eventRecord1.setCreateTime(OffsetDateTime.now());
-        eventRecord1.setShowTime(OffsetDateTime.parse("2020-05-21T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        eventRecord1.setMovieDecision("1917");
+        eventRecord2.setCreateTime(OffsetDateTime.now());
+        eventRecord2.setGroup(groupRecord1);
+        eventRecord2.setShowTime(OffsetDateTime.parse("2020-05-21T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        eventRecord2.setMovieDecision("1917");
         eventDao.save(eventRecord2);
     }
     @Test
@@ -56,5 +76,7 @@ public class EventDaoTest {
     public void cleanUp(){
         eventDao.delete(eventRecord1);
         if(eventRecord2 != null) eventDao.delete(eventRecord2);
+        groupDao.delete(groupRecord1);
+        UserDao.delete(userRecord1);
     }
 }
