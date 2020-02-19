@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.OffsetDateTime;
 
 
+@RestController
 public class EventController {
     @Autowired
     EventService eventService;

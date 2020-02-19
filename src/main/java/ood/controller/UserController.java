@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//@RestController
+@RestController
 public class UserController {
     @Autowired
     private UserService userService;
@@ -42,7 +42,7 @@ public class UserController {
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User addOwnGroup(@RequestBody User user){ return userService.addOwnGroup(user);}
 
-    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/user/manageGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User addOwnGroup(@RequestBody User user, Group group){ return userService.addOwnGroup(user,group);}
 
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
