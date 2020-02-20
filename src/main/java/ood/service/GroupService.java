@@ -8,6 +8,8 @@ import ood.repository.GroupDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -15,9 +17,11 @@ public class GroupService {
     @Autowired
     private GroupDao groupDao;
 
-
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MovieAPIService movieAPIService;
 
     public Group save(Group group){
         return groupDao.save(group);
@@ -66,7 +70,7 @@ public class GroupService {
     }
 
     public boolean sendStartEventEmail(Group group, Event event){
-        boolean flag = true;
+        boolean flag = true;    @Autowired
         String SUBJECT = "";
         String HTMLBODY = "";
         String TEXTBODY = "";
@@ -140,5 +144,12 @@ public class GroupService {
         }
         return flag;
     }
+
+
+    public HashMap getMovieDetail(String ttId){
+        HashMap<String,Object> movieDetails = movieAPIService.getOverviewDetails(ttId);
+        URL tailerUrl = 
+    }
+
 
 }
