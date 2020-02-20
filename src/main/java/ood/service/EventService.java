@@ -13,6 +13,12 @@ public class EventService {
     @Autowired
     private EventDao eventDao;
 
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private MovieAPIService movieAPIService;
+
     public Event save(Event event){
         return eventDao.save(event);
     }
@@ -38,6 +44,7 @@ public class EventService {
         event.setGroup(group);
         event.setCreateTime(createTime);
         event.setShowTime(showTime);
+        groupService.sendStartEventEmail(group,event);
         return eventDao.save(event);
     }
 

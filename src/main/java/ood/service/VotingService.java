@@ -1,6 +1,7 @@
 package ood.service;
 
 import ood.model.Event;
+import ood.model.Group;
 import ood.model.Voting;
 import ood.repository.VotingDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import java.time.OffsetDateTime;
 public class VotingService {
     @Autowired
     private VotingDao votingDao;
+
+    @Autowired
+    private GroupService groupService;
 
     public Voting save(Voting voting){
         return votingDao.save(voting);
@@ -29,11 +33,12 @@ public class VotingService {
         return votingDao.getVotingById(votingId);
     }
 
-    public Voting createVoting(OffsetDateTime startTime, OffsetDateTime endTime, Event event){
+    public Voting createVoting(OffsetDateTime startTime, OffsetDateTime endTime, Event event, Group group){
         Voting voting = new Voting();
         voting.setStartTime(startTime);
         voting.setEndTime(endTime);
         voting.setVotingEvent(event);
+        groupService.sendStartVotingEmail(group,event,voting);
         return votingDao.save(voting);
     }
 

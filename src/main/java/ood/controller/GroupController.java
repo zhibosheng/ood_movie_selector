@@ -45,4 +45,7 @@ public class GroupController {
     public List<Event> getHistory(@RequestBody Group group){
         return groupService.getHistory(group);
     }
+
+    @RequestMapping(value = "/group/inviteGroupEmail",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public boolean sendInviteGroupEmail(@RequestBody Group group, String email){ return groupService.sendInviteGroupEmail(group, email);}
 }

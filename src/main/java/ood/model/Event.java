@@ -18,6 +18,9 @@ public class Event {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    @Column(name = "selected_movies")
+    private String selectedMovies;
+
     @Column(name = "create_time")
     private OffsetDateTime createTime;
 
