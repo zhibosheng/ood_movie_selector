@@ -56,5 +56,8 @@ public class UserController {
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User leaveGroup(@RequestBody User user, Group group){ return userService.leaveGroup(user,group);}
 
+    @RequestMapping(value = "/user/inviteGroupEmail",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public boolean sendInviteGroupEmail(@RequestBody Group group, String email){ return userService.sendInviteGroupEmail(group, email);}
+
 
 }
