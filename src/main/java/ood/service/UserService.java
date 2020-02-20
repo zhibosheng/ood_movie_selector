@@ -34,6 +34,22 @@ public class UserService {
         return userDao.delete(user);
     }
 
+    public User getUserById(long userId){
+        return userDao.getUserById(userId);
+    }
+
+    public User getUserByName(String userName){
+        return userDao.getUserByName(userName);
+    }
+
+    public User getUserByEmail(String email){
+        return userDao.getUserByEmail(email);
+    }
+
+    public User getUserByPhone(String phone){
+        return getUserByPhone(phone);
+    }
+
     public List<Group> getOwnGroups(User user){
         return userDao.getOwnGroups(user);
     }
@@ -75,6 +91,10 @@ public class UserService {
         joinGroupsList.remove(group);
         user.setJoinGroups(joinGroupsList);
         return userDao.update(user);
+    }
+
+    public User getUserWithGroup(long userId){
+        return getUserWithGroup(userId);
     }
 
 

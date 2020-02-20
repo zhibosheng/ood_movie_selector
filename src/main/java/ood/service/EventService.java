@@ -25,6 +25,14 @@ public class EventService {
         return eventDao.delete(event);
     }
 
+    public Event getEventById(long eventId){
+        return eventDao.getEventById(eventId);
+    }
+
+    public Event getEventWithVoting(long eventId){
+        return eventDao.getEventWithVoting(eventId);
+    }
+
     public Event createEvent(Group group, OffsetDateTime createTime, OffsetDateTime showTime){
         Event event = new Event();
         event.setGroup(group);

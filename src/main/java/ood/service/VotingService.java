@@ -25,6 +25,10 @@ public class VotingService {
         return votingDao.delete(voting);
     }
 
+    public Voting getVotingById(long votingId){
+        return votingDao.getVotingById(votingId);
+    }
+
     public Voting createVoting(OffsetDateTime startTime, OffsetDateTime endTime, Event event){
         Voting voting = new Voting();
         voting.setStartTime(startTime);

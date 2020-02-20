@@ -6,10 +6,7 @@ import ood.model.User;
 import ood.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,11 @@ import java.util.List;
 public class GroupController {
     @Autowired
     GroupService groupService;
+
+    @RequestMapping(value = "/group/{userId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Group getGroupById(@PathVariable(name = "groupId") long groupId){
+        return groupService.getGroupById(groupId);
+    }
 
     @RequestMapping(value = "/group",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group save(@RequestBody Group group){

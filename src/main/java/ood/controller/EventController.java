@@ -5,10 +5,7 @@ import ood.model.Group;
 import ood.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
 
@@ -17,6 +14,11 @@ import java.time.OffsetDateTime;
 public class EventController {
     @Autowired
     EventService eventService;
+
+    @RequestMapping(value = "/event/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Event getEventById(@PathVariable(name = "eventId")  long eventId){
+        return eventService.getEventById(eventId);
+    }
 
     @RequestMapping(value = "/event",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event save(@RequestBody Event event){

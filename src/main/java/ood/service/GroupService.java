@@ -26,6 +26,14 @@ public class GroupService {
         return groupDao.delete(group);
     }
 
+    public Group getGroupById(long groupId){
+        return groupDao.getGroupById(groupId);
+    }
+
+    public Group getGroupWithEvent(long groupId){
+        return groupDao.getGroupWithEvent(groupId);
+    }
+
     public Group createGroup(User user){
         Group group = new Group();
         group.setModerator(user);

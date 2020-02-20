@@ -6,10 +6,7 @@ import ood.model.User;
 import ood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +14,11 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @RequestMapping(value = "/user/{userId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User getUserById(@PathVariable(name = "userId") long userId){
+        return userService.getUserById(userId);
+    }
 
     @RequestMapping(value = "/user",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User save(@RequestBody User user){

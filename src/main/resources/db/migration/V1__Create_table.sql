@@ -9,6 +9,8 @@ create table "users"(
 
 create table "groups"(
 	group_id       BIGSERIAL NOT NULL,
+	group_name     VARCHAR(255) NOT NULL UNIQUE,
+	group_description  VARCHAR(255) NOT NULL,
 	moderator_id   BIGINT    NOT NULL , 
 	last_event_id  BIGINT,
 	PRIMARY KEY(group_id)

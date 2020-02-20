@@ -36,7 +36,7 @@ public class MessageService {
 //            + "Amazon SES</a> using the <a href='https://aws.amazon.com/sdk-for-java/'>"
 //            + "AWS SDK for Java</a>";
 
-    // The email body for recipients with non-HTML email clients.
+    // The email https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-using-sdk-java.htmlbody for recipients with non-HTML email clients.
 //    static final String TEXTBODY = "This email was sent through Amazon SES "
 //            + "using the AWS SDK for Java.";
 

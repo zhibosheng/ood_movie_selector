@@ -4,10 +4,7 @@ import ood.model.Voting;
 import ood.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
 
@@ -16,6 +13,11 @@ import java.time.OffsetDateTime;
 public class VotingController {
     @Autowired
     VotingService votingService;
+
+    @RequestMapping(value = "/voting/{votingId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Voting getVotingById(@PathVariable(name = "votingId") long votingId){
+        return votingService.getVotingById(votingId);
+    }
 
     @RequestMapping(value = "/voting",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Voting save(@RequestBody Voting voting){

@@ -11,6 +11,12 @@ public class Group {
     @Column(name = "group_id")
     private long groupId;
 
+    @Column(name = "group_name")
+    private String groupName;
+
+    @Column(name = "group_description")
+    private String groupDescription;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "moderator_id")
     private User moderator;
@@ -33,6 +39,22 @@ public class Group {
 
     public void setGroupId(long groupId) {
         this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getGroupDescription() {
+        return groupDescription;
+    }
+
+    public void setGroupDescription(String groupDescription) {
+        this.groupDescription = groupDescription;
     }
 
     public User getModerator() {
