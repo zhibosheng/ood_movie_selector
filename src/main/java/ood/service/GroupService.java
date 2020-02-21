@@ -70,7 +70,7 @@ public class GroupService {
     }
 
     public boolean sendStartEventEmail(Group group, Event event){
-        boolean flag = true;    @Autowired
+        boolean flag = true;
         String SUBJECT = "";
         String HTMLBODY = "";
         String TEXTBODY = "";
@@ -144,12 +144,5 @@ public class GroupService {
         }
         return flag;
     }
-
-
-    public HashMap getMovieDetail(String ttId){
-        HashMap<String,Object> movieDetails = movieAPIService.getOverviewDetails(ttId);
-        URL tailerUrl = 
-    }
-
 
 }

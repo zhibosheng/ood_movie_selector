@@ -15,6 +15,16 @@ public class MovieAPIController {
     @Autowired
     private MovieAPIController movieAPIController;
 
+    @RequestMapping(value = "/movie/find/{movieName}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public String findMovie(@PathVariable(name = "movieName") String movieName){
+        return movieAPIController.findMovie(movieName);
+    }
+
+    @RequestMapping(value = "/movie/moreLikeThis/{ttId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<String> getMoreLikeThis(@PathVariable(name = "ttId") String ttId){
+        return movieAPIController.getMoreLikeThis(ttId);
+    }
+
     @RequestMapping(value = "/movie/detail/{ttId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public HashMap getOverviewDetails(@PathVariable(name = "ttId") String ttId){
         return movieAPIController.getOverviewDetails(ttId);
