@@ -66,4 +66,38 @@ public class EventDaoImpl implements EventDao{
 
         return deletedCount >= 1 ? true : false;
     }
+
+    @Override
+    public Event getEventById(long eventId){
+
+        String hql = "FROM Event where eventId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Event> query = session.createQuery(hql);
+            query.setParameter("id", eventId);
+
+            Event event = query.uniqueResult();
+            if (event != null) {
+                logger.debug(event.toString());
+            }
+            return event;
+        }
+    }
+
+    @Override
+    public Event getEventWithVoting(long eventId){
+
+        String hql = "FROM Event e left join fetch e.voting where e.eventId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Event> query = session.createQuery(hql);
+            query.setParameter("id", eventId);
+
+            Event event = query.uniqueResult();
+            if (event != null) {
+                logger.debug(event.toString());
+            }
+            return event;
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class Voting {
     @Column(name = "voting_result")
     private String votingResult;
 
-    @OneToOne(mappedBy = "", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "voting", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private Event votingEvent;
 
     public long getVotingId() {

@@ -59,14 +59,12 @@ public class GroupService {
         String SUBJECT = "Group invitation from MovieSelector Website";
         String HTMLBODY = "<h1>Hi,</h1>" +
                         "<p>Your friend is inviting you to join his/her movie watching group. " +
-                        "Please click the following link: <a href='https://aws.amazon.com/ses/'><url></a>. " +
+                        "Please click the following link: <a href='https://aws.amazon.com/ses/'> click me </a>. " +
                         "If you are a new user, " +
                         "you are welcome to click to register a new account for free. " +
                         "If you already have an account, please log in to join this new group.</p>";
+        String TEXTBODY =  "Hi, Your friend is inviting you to join his/her movie watchinggroup.";
 
-        String TEXTBODY =  "Message from movieSelector website. This is a website for friends and family" +
-                           "to choose movies to watch. Here you can join different groups, vote on movie" +
-                           "watching activities and browse related information.";
         try {
             messageService.sendEmail(TO, SUBJECT, HTMLBODY, TEXTBODY);
         }catch (Exception ex){
@@ -80,8 +78,14 @@ public class GroupService {
     public boolean sendStartEventEmail(Group group, Event event){
         boolean flag = true;
         String SUBJECT = "New group event notification from MovieSelector Website";
-        String HTMLBODY = "";
-        String TEXTBODY = "";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                          "<p>" + group.getGroupName() + " has a new event, which is created by " + group.getModerator() +". "+
+                          "This movie watching eventwill start at " + event.getShowTime() +
+                          "Hope you can participate.</p>";
+        String TEXTBODY = "Hi, " +
+                          group.getGroupName() + " has a new event, which is created by " + group.getModerator() + ". "+
+                          "This movie watching eventwill start at " + event.getShowTime() + "." +
+                          "Hope you can participate.";
         List<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
@@ -98,9 +102,17 @@ public class GroupService {
 
     public boolean sendStartVotingEmail(Group group, Event event, Voting voting){
         boolean flag = true;
-        String SUBJECT = "";
-        String HTMLBODY = "";
-        String TEXTBODY = "";
+        String SUBJECT = "New voting invitation from MovieSelector Website";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                          "<p>" + group.getModerator() + " in " + group.getGroupName() + " you joined has initiated a voting, " +
+                          "please clickthe link: <a href='https://aws.amazon.com/ses/'> click me </a> to participate in the voting. " +
+                          "Voting will end at " + voting.getEndTime() + ", " + "please complete the voting before the end time. " +
+                          "Your vote will determine the final viewing result.</p>";
+        String TEXTBODY = "Hi, " +
+                          group.getModerator() + " in " + group.getGroupName() + " you joined has initiated a voting, " +
+                          "please clickthe link: <a href='https://aws.amazon.com/ses/'> click me </a> to participate in the voting. " +
+                          "Voting will end at " + voting.getEndTime() + ", " + "please complete the voting before the end time. " +
+                          "Your vote will determine the final viewing result.";;
         List<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
@@ -117,9 +129,13 @@ public class GroupService {
 
     public boolean sendVotingResultEmail(Group group, Event event, Voting voting){
         boolean flag = true;
-        String SUBJECT = "";
-        String HTMLBODY = "";
-        String TEXTBODY = "";
+        String SUBJECT = "Announcement of the voting result from MovieSelector Website";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                          "<p>Voting on the " + group.getGroupName() + " you joined has ended. " +
+                          "As a result, " + event.getMovieDecision() + " became the movie of choice.</p>";
+        String TEXTBODY = "Hi, " +
+                          "Voting on the " + group.getGroupName() + " you joined has ended. " +
+                          "As a result, " + event.getMovieDecision() + " became the movie of choice.";;
         List<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
@@ -136,9 +152,13 @@ public class GroupService {
 
     public boolean sendMovieStartNotificationEmail(Group group, Event event){
         boolean flag = true;
-        String SUBJECT = "";
-        String HTMLBODY = "";
-        String TEXTBODY = "";
+        String SUBJECT = "Notification of the upcoming event from MovieSelector Website";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                          "<p>" + group.getGroupName() + " will start watching the " + event.getMovieDecision() + " in ten minutes." +
+                          "Hope you will be on time.</p>";
+        String TEXTBODY = "Hi, " +
+                          group.getGroupName() + " will start watching the " + event.getMovieDecision() + " in ten minutes." +
+                          "Hope you will be on time.";
         List<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();

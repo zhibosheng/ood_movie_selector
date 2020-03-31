@@ -27,6 +27,7 @@ public class VotingDaoTest {
 
        votingRecord1.setStartTime(OffsetDateTime.parse("2020-05-20T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
        votingRecord1.setEndTime(OffsetDateTime.parse("2020-05-21T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+       votingRecord1.setVotingResult("X man");
 
        votingRecord2.setStartTime(OffsetDateTime.parse("2020-03-20T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
        votingRecord2.setEndTime(OffsetDateTime.parse("2020-03-21T20:30:00+00:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME));
@@ -49,6 +50,13 @@ public class VotingDaoTest {
     public void delete(){
         votingDao.delete(votingRecord2);
     }
+
+    @Test
+    public void getVotingById(){
+        long id = votingRecord2.getVotingId();
+        Assert.assertEquals(votingDao.getVotingById(id).getStartTime(),
+                OffsetDateTime.parse("2020-03-20T16:30:00-04:00"));
+}
 
     @After
     public void cleanUp(){

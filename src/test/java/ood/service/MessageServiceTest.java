@@ -17,10 +17,10 @@ public class MessageServiceTest {
     @Test
     public void sendEmail(){
         String TO = "zhibosheng@gwu.edu";
-        String SUBJECT = "Amazon SES test (AWS SDK for Java)";
+        String SUBJECT = "Group invitation from MovieSelector Website";
         String HTMLBODY = "<h1>Hi,</h1>" +
                 "<p>Your friend is inviting you to join his/her movie watching group. " +
-                "Please click the following link: <a href='https://aws.amazon.com/ses/'><url></a>. " +
+                "Please click the following link: <a href='https://aws.amazon.com/ses/'>123456789</a>. " +
                 "If you are a new user, " +
                 "you are welcome to click to register a new account for free. " +
                 "If you already have an account, please log in to join this new group.</p>";

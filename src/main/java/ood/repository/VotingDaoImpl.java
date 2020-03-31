@@ -67,4 +67,21 @@ public class VotingDaoImpl implements VotingDao{
 
         return deletedCount >= 1 ? true : false;
     }
+
+    @Override
+    public Voting getVotingById(long votingId) {
+
+        String hql = "FROM Voting where votingId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Voting> query = session.createQuery(hql);
+            query.setParameter("id", votingId);
+
+            Voting voting = query.uniqueResult();
+            if (voting != null) {
+                logger.debug(voting.toString());
+            }
+            return voting;
+        }
+    }
 }
