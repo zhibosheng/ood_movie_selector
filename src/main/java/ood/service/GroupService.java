@@ -56,9 +56,17 @@ public class GroupService {
     public boolean sendInviteGroupEmail(Group group, String email){
         boolean flag = true;
         String TO = email;
-        String SUBJECT = "";
-        String HTMLBODY = "";
-        String TEXTBODY = "";
+        String SUBJECT = "Group invitation from MovieSelector Website";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                        "<p>Your friend is inviting you to join his/her movie watching group. " +
+                        "Please click the following link: <a href='https://aws.amazon.com/ses/'><url></a>. " +
+                        "If you are a new user, " +
+                        "you are welcome to click to register a new account for free. " +
+                        "If you already have an account, please log in to join this new group.</p>";
+
+        String TEXTBODY =  "Message from movieSelector website. This is a website for friends and family" +
+                           "to choose movies to watch. Here you can join different groups, vote on movie" +
+                           "watching activities and browse related information.";
         try {
             messageService.sendEmail(TO, SUBJECT, HTMLBODY, TEXTBODY);
         }catch (Exception ex){
@@ -71,7 +79,7 @@ public class GroupService {
 
     public boolean sendStartEventEmail(Group group, Event event){
         boolean flag = true;
-        String SUBJECT = "";
+        String SUBJECT = "New group event notification from MovieSelector Website";
         String HTMLBODY = "";
         String TEXTBODY = "";
         List<User> users = group.getUsers();

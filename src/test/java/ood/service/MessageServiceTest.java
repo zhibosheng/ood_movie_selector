@@ -18,12 +18,15 @@ public class MessageServiceTest {
     public void sendEmail(){
         String TO = "zhibosheng@gwu.edu";
         String SUBJECT = "Amazon SES test (AWS SDK for Java)";
-        String HTMLBODY = "<h1>Amazon SES test (AWS SDK for Java)</h1>"
-                + "<p>This email was sent with <a href='https://aws.amazon.com/ses/'>"
-                + "Amazon SES</a> using the <a href='https://aws.amazon.com/sdk-for-java/'>"
-                + "AWS SDK for Java</a>";
-        String TEXTBODY = "This email was sent through Amazon SES "
-                + "using the AWS SDK for Java.";
+        String HTMLBODY = "<h1>Hi,</h1>" +
+                "<p>Your friend is inviting you to join his/her movie watching group. " +
+                "Please click the following link: <a href='https://aws.amazon.com/ses/'><url></a>. " +
+                "If you are a new user, " +
+                "you are welcome to click to register a new account for free. " +
+                "If you already have an account, please log in to join this new group.</p>";
+        String TEXTBODY = "Message from movieSelector website. This is a website for friends and family" +
+                "to choose movies to watch. Here you can join different groups, vote on movie" +
+                "watching activities and browse related information.";;
         try{
             messageService.sendEmail(TO,SUBJECT,HTMLBODY,TEXTBODY);
         } catch (Exception ex){

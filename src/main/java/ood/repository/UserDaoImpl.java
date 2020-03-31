@@ -108,7 +108,8 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-        public List<Group> getJoinGroups (User user){
+    @Override
+    public List<Group> getJoinGroups (User user){
             String hql = "SELECT g FROM Group g left JOIN fetch g.users u where u.userId = :id";
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
