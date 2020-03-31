@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -55,6 +56,12 @@ public class ScheduledTasks {
         for(Voting voting: votingList){
             Event event = voting.getVotingEvent();
             Group group = event.getGroup();
+            List<User> userList = group.getUsers();
+            HashMap<String,String> votingResultMap = new HashMap<>();
+            for(User user: userList){
+                votingResultMap.put(Long.toString(user.getUserId()),"");
+            }
+
             groupService.sendStartVotingEmail(group,event,voting);
         }
     }
