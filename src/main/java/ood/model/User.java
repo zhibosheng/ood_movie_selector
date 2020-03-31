@@ -4,6 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -39,7 +40,7 @@ public class User {
     }
 
     public void setUserId(long userId) {
-        this.userId = userId;
+        this.userId = userId;hashmap to
     }
 
     public String getUserName() {
@@ -102,5 +103,14 @@ public class User {
         this.joinGroups = joinGroups;
     }
 
+    @Override
+    public int hashCode() { return Objects.hash(userId,userName);}
 
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId == user.userId;
+    }
 }
