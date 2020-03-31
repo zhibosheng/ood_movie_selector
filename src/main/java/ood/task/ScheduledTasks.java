@@ -53,7 +53,22 @@ public class ScheduledTasks {
         OffsetDateTime offsetDateTime = date.toInstant().atOffset(ZoneOffset.UTC);
         List<Voting> votingList = votingService.getVotingByStartTime(offsetDateTime);
         for(Voting voting: votingList){
+            Event event = voting.getVotingEvent();
+            Group group = event.getGroup();
+            groupService.sendStartVotingEmail(group,event,voting);
+        }
+    }
 
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void checkEndVoting(){
+        Date date = new Date();
+        OffsetDateTime offsetDateTime = date.toInstant().atOffset(ZoneOffset.UTC);
+        List<Voting> votingList = votingService.getVotingByEndTime(offsetDateTime);
+        for(Voting voting: votingList){
+            Event event = voting.getVotingEvent();
+            Group group = event.getGroup();
+            //TO DO calculate voting result and save to database
+            groupService.sendVotingResultEmail(group,event,voting);
         }
     }
 }
