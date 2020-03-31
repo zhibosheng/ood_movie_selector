@@ -75,6 +75,8 @@ public class GroupService {
         return flag;
     }
 
+//    public List<User> getGroupWithUsers(Group group){ return groupDao.getGroupWithUsers(group);}
+
     public boolean sendStartEventEmail(Group group, Event event){
         boolean flag = true;
         String SUBJECT = "New group event notification from MovieSelector Website";

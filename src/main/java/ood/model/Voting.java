@@ -55,6 +55,11 @@ public class Voting {
     }
 
     public Event getVotingEvent() {
+        try{
+            boolean flag = votingEvent.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return votingEvent;
     }
 

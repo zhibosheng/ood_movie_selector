@@ -58,6 +58,11 @@ public class Group {
     }
 
     public User getModerator() {
+        try{
+            boolean flag = moderator.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return moderator;
     }
 
@@ -66,6 +71,11 @@ public class Group {
     }
 
     public Event getLastEvent() {
+        try{
+            boolean flag = lastEvent.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return lastEvent;
     }
 

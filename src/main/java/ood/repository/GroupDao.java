@@ -15,4 +15,5 @@ public interface GroupDao {
     Group getGroupWithEvent(long groupId);
     List<Group> getAllGroups();
     List<Event> getHistory(Group group);
+//    List<User> getGroupWithUsers(Group group);
 }

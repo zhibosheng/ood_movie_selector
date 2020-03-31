@@ -44,6 +44,11 @@ public class Event {
     }
 
     public Voting getVoting() {
+        try{
+            boolean flag = voting.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return voting;
     }
 
@@ -52,6 +57,11 @@ public class Event {
     }
 
     public Group getGroup() {
+        try{
+            boolean flag = group.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return group;
     }
 
