@@ -56,9 +56,13 @@ public class GroupDaoTest {
 
 
         groupRecord2.setModerator(userRecord2);
+        groupRecord2.setGroupName("groupB");
+        groupRecord2.setGroupDescription("This is B");
         groupDao.save(groupRecord2);
 
         groupRecord1.setModerator(userRecord1);
+        groupRecord1.setGroupName("groupA");
+        groupRecord1.setGroupDescription("This is A");
         List<Event> list = new LinkedList<>();
         list.add(eventRecord1);
         list.add(eventRecord2);
@@ -95,6 +99,28 @@ public class GroupDaoTest {
     }
 
     @Test
+    public void getGroupById(){
+        long id = groupRecord2.getGroupId();
+        Assert.assertEquals(groupDao.getGroupById(id).getGroupName(), "groupB");
+
+    }
+
+    @Test
+    public void getGroupWithEvent(){
+        groupDao.save(groupRecord1);
+        eventDao.save(eventRecord1);
+        eventDao.save(eventRecord2);
+        long id = groupRecord1.getGroupId();
+        Assert.assertEquals(groupDao.getGroupWithEvent(id).getEvents().size(), 2);
+
+    }
+
+    @Test
+    public void getAllGroups(){
+        Assert.assertEquals(groupDao.getAllGroups().size(), 1);
+    }
+
+    @Test
     public void getHistory(){
 
         groupDao.save(groupRecord1);
@@ -107,6 +133,8 @@ public class GroupDaoTest {
 
 
 
+
+
     @After
     public void cleanUp(){
         eventDao.delete(eventRecord1);
@@ -116,4 +144,5 @@ public class GroupDaoTest {
         UserDao.delete(userRecord1);
         UserDao.delete(userRecord2);
     }
+
 }

@@ -96,6 +96,57 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserById(long userId) {
+
+        String hql = "FROM User where userId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("id", userId);
+
+            User user = query.uniqueResult();
+            if (user != null) {
+                logger.debug(user.toString());
+            }
+            return user;
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+
+        String hql = "FROM User where lower(email) = :email";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("email", email.toLowerCase());
+
+            User user = query.uniqueResult();
+            if (user != null) {
+                logger.debug(user.toString());
+            }
+            return user;
+        }
+    }
+
+    @Override
+    public User getUserByPhone(String phone) {
+
+        String hql = "FROM User where phone = :phone";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("phone", phone);
+
+            User user = query.uniqueResult();
+            if (user != null) {
+                logger.debug(user.toString());
+            }
+            return user;
+        }
+    }
+
+    @Override
     public List<Group> getOwnGroups(User user) {
 
         String hql = "FROM Group as g left join fetch g.moderator where g.moderator.userId = :id";
@@ -108,7 +159,8 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-        public List<Group> getJoinGroups (User user){
+    @Override
+    public List<Group> getJoinGroups (User user){
             String hql = "SELECT g FROM Group g left JOIN fetch g.users u where u.userId = :id";
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -117,4 +169,24 @@ public class UserDaoImpl implements UserDao {
                 return query.list();
             }
         }
+
+    @Override
+    public User getUserWithGroup(long userId) {
+
+        String hql = "FROM User u left join fetch u.ownGroups where u.userId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("id", userId);
+
+            User user = query.uniqueResult();
+            if (user != null) {
+                logger.debug(user.toString());
+            }
+            return user;
+        }
     }
+
+}
+
+

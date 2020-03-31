@@ -44,8 +44,12 @@ public class UserDaoTest {
         UserDao.save(userRecord2);
 
         groupRecord1.setModerator(userRecord2);
+        groupRecord1.setGroupName("groupA");
+        groupRecord1.setGroupDescription("This is A");
         GroupDao.save(groupRecord1);
         groupRecord2.setModerator(userRecord2);
+        groupRecord2.setGroupName("groupB");
+        groupRecord2.setGroupDescription("This is B");
         GroupDao.save(groupRecord2);
 
     }
@@ -73,6 +77,24 @@ public class UserDaoTest {
     }
 
     @Test
+    public void getUserById(){
+        long id = userRecord2.getUserId();
+        Assert.assertEquals(UserDao.getUserById(id).getUserName(), "Bob");
+    }
+
+    @Test
+    public void getUserByEmail(){
+        String email = userRecord2.getEmail();
+        Assert.assertEquals(UserDao.getUserByEmail(email).getUserName(), "Bob");
+    }
+
+    @Test
+    public void getUserByPhone(){
+        String phone = userRecord2.getPhone();
+        Assert.assertEquals(UserDao.getUserByPhone(phone).getUserName(), "Bob");
+    }
+
+    @Test
     public void getOwnGroups(){
         List<Group> list = UserDao.getOwnGroups(userRecord2);
         Assert.assertEquals(2, list.size());
@@ -88,6 +110,12 @@ public class UserDaoTest {
 
         List<Group> list = UserDao.getJoinGroups(userRecord2);
         Assert.assertEquals(2, list.size());
+    }
+
+    @Test
+    public void getUserWithGroup(){
+        long id = userRecord2.getUserId();
+        Assert.assertEquals(UserDao.getUserWithGroup(id).getOwnGroups().size(), 2);
     }
 
     @After
