@@ -1,5 +1,7 @@
 package ood.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
@@ -100,6 +102,19 @@ public class User {
 
     public void setJoinGroups(List<Group> joinGroups) {
         this.joinGroups = joinGroups;
+    }
+
+    @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String str = null;
+        try {
+            str = objectMapper.writeValueAsString(this);
+        }
+        catch(JsonProcessingException jpe) {
+            jpe.printStackTrace();
+        }
+        return str;
     }
 
 

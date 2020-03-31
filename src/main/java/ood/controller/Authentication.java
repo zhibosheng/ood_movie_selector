@@ -27,13 +27,19 @@ public class Authentication {
     @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity authenticate(@RequestBody User user){
         String token = "";
-
+        logger.info("Till now is ok.");
         try {
-            logger.debug(user.toString());
+            logger.info(user.toString());
             User u = userService.getUserByCredentials(user.getUserName(), user.getPassword());
-            if(u == null) u = userService.getUserByCredentials(user.getUserId(), user.getPassword());
-            if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
-            logger.debug(u.toString());
+            if(u == null){
+                logger.info("user is null!!!!!!!!!!!!!!!!!!");
+            }
+            else{
+                logger.info(u.getUserName()+"-------------> is ok.");
+            }
+           // if(u == null) u = userService.getUserByCredentials(user.getUserId(), user.getPassword());
+            //if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
+            //logger.debug(u.toString());
             //token = JwtUtil.generateToken(u);
         }
         catch (Exception e) {

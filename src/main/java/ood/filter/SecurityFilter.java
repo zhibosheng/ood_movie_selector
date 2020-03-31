@@ -52,7 +52,7 @@ public class SecurityFilter implements Filter {
 //                if (!s.trim().startsWith("/")) continue;
 //                //if (!s.trim().matches("/*.")) continue;
 //                if (uri.trim().toLowerCase().startsWith(s.trim().toLowerCase())) {
-                    statusCode = HttpServletResponse.SC_ACCEPTED;
+//                    statusCode = HttpServletResponse.SC_ACCEPTED;
 //                    break;
 //                }
 //            }
