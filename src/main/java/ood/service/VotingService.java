@@ -33,6 +33,10 @@ public class VotingService {
         return votingDao.getVotingById(votingId);
     }
 
+//    public Voting getVotingByStartTime(OffsetDateTime startTime){ return votingDao.getVotingByStartTime(startTime); }
+//
+//    public Voting getVotingByEndTime(OffsetDateTime endTime){ return votingDao.getVotingByEndTime(endTime); }
+
     public Voting createVoting(OffsetDateTime startTime, OffsetDateTime endTime, Event event, Group group){
         Voting voting = new Voting();
         voting.setStartTime(startTime);

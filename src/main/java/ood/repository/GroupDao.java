@@ -4,6 +4,7 @@ import ood.model.Event;
 import ood.model.Group;
 import ood.model.User;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public interface GroupDao {

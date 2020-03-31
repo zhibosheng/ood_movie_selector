@@ -35,6 +35,8 @@ public class EventService {
         return eventDao.getEventById(eventId);
     }
 
+//    public Event getEventByShowTime(OffsetDateTime showTime) { return eventDao.getEventByShowTime(showTime); }
+
     public Event getEventWithVoting(long eventId){
         return eventDao.getEventWithVoting(eventId);
     }
