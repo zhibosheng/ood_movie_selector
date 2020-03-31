@@ -40,7 +40,7 @@ public class User {
     }
 
     public void setUserId(long userId) {
-        this.userId = userId;hashmap to
+        this.userId = userId;
     }
 
     public String getUserName() {
