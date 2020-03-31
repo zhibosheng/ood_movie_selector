@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public User getUserByPhone(String phone){
-        return getUserByPhone(phone);
+        return userDao.getUserByPhone(phone);
     }
 
     public List<Group> getOwnGroups(User user){

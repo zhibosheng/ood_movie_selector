@@ -20,6 +20,21 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    @RequestMapping(value = "/user/name/{userName}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User getUserByName(@PathVariable(name = "userName") String userName){
+        return userService.getUserByName(userName);
+    }
+
+    @RequestMapping(value = "/user/email/{email}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User getUserByEmail(@PathVariable(name = "email") String email){
+        return userService.getUserByEmail(email);
+    }
+
+    @RequestMapping(value = "/user/phone/{phone}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public User getUserByPhone(@PathVariable(name = "phone") String phone){
+        return userService.getUserByPhone(phone);
+    }
+
     @RequestMapping(value = "/user",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User save(@RequestBody User user){
         return userService.save(user);
