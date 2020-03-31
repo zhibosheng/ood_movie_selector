@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class VotingService {
@@ -33,9 +34,9 @@ public class VotingService {
         return votingDao.getVotingById(votingId);
     }
 
-//    public Voting getVotingByStartTime(OffsetDateTime startTime){ return votingDao.getVotingByStartTime(startTime); }
-//
-//    public Voting getVotingByEndTime(OffsetDateTime endTime){ return votingDao.getVotingByEndTime(endTime); }
+    public List<Voting> getVotingByStartTime(OffsetDateTime startTime){ return votingDao.getVotingByStartTime(startTime); }
+
+    public List<Voting> getVotingByEndTime(OffsetDateTime endTime){ return votingDao.getVotingByEndTime(endTime); }
 
     public Voting createVoting(OffsetDateTime startTime, OffsetDateTime endTime, Event event, Group group){
         Voting voting = new Voting();

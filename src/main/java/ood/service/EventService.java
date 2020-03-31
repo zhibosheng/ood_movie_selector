@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Service
 public class EventService {
@@ -35,7 +36,7 @@ public class EventService {
         return eventDao.getEventById(eventId);
     }
 
-//    public Event getEventByShowTime(OffsetDateTime showTime) { return eventDao.getEventByShowTime(showTime); }
+    public List<Event> getEventByShowTime(OffsetDateTime showTime) { return eventDao.getEventByShowTime(showTime); }
 
     public Event getEventWithVoting(long eventId){
         return eventDao.getEventWithVoting(eventId);

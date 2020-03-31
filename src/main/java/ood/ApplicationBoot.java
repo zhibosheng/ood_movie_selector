@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
  */
 @SpringBootApplication
+@ServletComponentScan(basePackages = {"ood"})
 @EnableScheduling
 public class ApplicationBoot {
     public static void main( String[] args ) {
