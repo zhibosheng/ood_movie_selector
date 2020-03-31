@@ -56,7 +56,17 @@ public class VotingDaoTest {
         long id = votingRecord2.getVotingId();
         Assert.assertEquals(votingDao.getVotingById(id).getStartTime(),
                 OffsetDateTime.parse("2020-03-20T16:30:00-04:00"));
-}
+    }
+
+    @Test
+    public void getVotingByStartTime(){
+        Assert.assertEquals(votingDao.getVotingByStartTime(OffsetDateTime.parse("2020-03-20T16:30:00-04:00")).size(),1);
+    }
+
+    @Test
+    public void getVotingByEndTime(){
+        Assert.assertEquals(votingDao.getVotingByEndTime(OffsetDateTime.parse("2020-03-21T16:30:00-04:00")).size(),1);
+    }
 
     @After
     public void cleanUp(){

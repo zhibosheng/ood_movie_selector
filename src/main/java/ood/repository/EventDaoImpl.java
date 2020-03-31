@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+
 @Repository
 public class EventDaoImpl implements EventDao{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -81,6 +84,18 @@ public class EventDaoImpl implements EventDao{
                 logger.debug(event.toString());
             }
             return event;
+        }
+    }
+
+    @Override
+    public List<Event> getEventByShowTime(OffsetDateTime showTime){
+        String hql = "FROM Event where showTime = :time";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Event> query = session.createQuery(hql);
+            query.setParameter("time", showTime);
+            return query.list();
+
         }
     }
 

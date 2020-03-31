@@ -11,6 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+
 @Repository
 public class VotingDaoImpl implements VotingDao{
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -82,6 +85,30 @@ public class VotingDaoImpl implements VotingDao{
                 logger.debug(voting.toString());
             }
             return voting;
+        }
+    }
+
+    @Override
+    public List<Voting> getVotingByStartTime(OffsetDateTime startTime){
+        String hql = "FROM Voting where startTime = :time";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Voting> query = session.createQuery(hql);
+            query.setParameter("time", startTime);
+            return query.list();
+
+        }
+    }
+
+    @Override
+    public List<Voting> getVotingByEndTime(OffsetDateTime endTime){
+        String hql = "FROM Voting where endTime = :time";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Voting> query = session.createQuery(hql);
+            query.setParameter("time", endTime);
+            return query.list();
+
         }
     }
 }

@@ -100,6 +100,11 @@ public class EventDaoTest {
 
     }
 
+    @Test
+    public void getEventByShowTime(){
+        Assert.assertEquals(eventDao.getEventByShowTime(OffsetDateTime.parse("2020-05-21T16:30:00-04:00")).size(), 1);
+    }
+
     @After
     public void cleanUp(){
         eventDao.delete(eventRecord1);
