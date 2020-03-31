@@ -187,6 +187,30 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public User getUserByCredentials(String name, String password){
+        String hql = "FROM User as u where lower(u.userName) = :name and u.password = :password";
+        logger.debug(String.format("User name: %s, password: %s", name, password));
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("name", name.toLowerCase().trim());
+            query.setParameter("password", password);
+            return query.uniqueResult();
+        }
+    }
+
+    @Override
+    public User getUserByCredentials(long userId, String password){
+        String hql = "FROM User as u where u.userId = :id and u.password = :password";
+        logger.debug(String.format("User id: %s, password: %s", userId, password));
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("id", userId);
+            query.setParameter("password", password);
+            return query.uniqueResult();
+        }
+    }
+
 }
 
 

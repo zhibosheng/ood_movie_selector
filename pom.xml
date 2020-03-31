@@ -98,7 +98,12 @@
       <artifactId>unirest-java</artifactId>
       <version>1.4.9</version>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.json/json -->
+      <dependency>
+          <groupId>org.jetbrains</groupId>
+          <artifactId>annotations</artifactId>
+          <version>17.0.0</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.json/json -->
 
 
 

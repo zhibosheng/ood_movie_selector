@@ -100,4 +100,13 @@ public class UserService {
     public User getUserWithGroup(long userId){
         return getUserWithGroup(userId);
     }
+
+    public User getUserByCredentials(String name, String password) {
+        return userDao.getUserByCredentials(name, password);
+    }
+
+    public User getUserByCredentials(long id, String password) {
+        return userDao.getUserByCredentials(id, password);
+    }
+
 }

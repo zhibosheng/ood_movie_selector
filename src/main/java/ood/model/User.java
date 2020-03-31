@@ -1,5 +1,7 @@
 package ood.model;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -52,8 +54,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(@org.jetbrains.annotations.NotNull String password) {
+        this.password = DigestUtils.md5Hex(password.trim());
     }
 
     public String getEmail() {
