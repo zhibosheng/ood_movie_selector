@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -42,6 +44,12 @@ public class EventService {
         return eventDao.getEventWithVoting(eventId);
     }
 
+    public Event createEvent(Group group, OffsetDateTime showTime){
+        Date date = new Date();
+        OffsetDateTime createTime = date.toInstant().atOffset(ZoneOffset.UTC);
+        return createEvent(group,createTime,showTime);
+    }
+
     public Event createEvent(Group group, OffsetDateTime createTime, OffsetDateTime showTime){
         Event event = new Event();
         event.setGroup(group);
@@ -50,6 +58,16 @@ public class EventService {
         groupService.sendStartEventEmail(group,event);
         return eventDao.save(event);
     }
+
+//    public Event selectMovies(Event event,List<String> movieArray){
+//        String movieArrayString = "";
+//        for(String ele:movieArray){
+//            movieArrayString += ele + ",";
+//        }
+//        movieArrayString = movieArrayString.substring(0,movieArrayString.length()-1);
+//        event.setSelectedMovies(movieArrayString);
+//        return eventDao.update(event);
+//    }
 
     public Event changeShowTime(Event event,OffsetDateTime showTime){
         event.setShowTime(showTime);

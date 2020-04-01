@@ -69,6 +69,14 @@ public class Event {
         this.group = group;
     }
 
+    public String getSelectedMovies() {
+        return selectedMovies;
+    }
+
+    public void setSelectedMovies(String selectedMovies) {
+        this.selectedMovies = selectedMovies;
+    }
+
     public OffsetDateTime getCreateTime() {
         return createTime;
     }

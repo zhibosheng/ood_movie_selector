@@ -31,6 +31,7 @@ public class MovieAPIServiceTest {
     @Test
     public void getMoreLikeThis(){
         List<String> moreLikeThisList =  movieAPIService.getMoreLikeThis(ttId);
+        System.out.println(moreLikeThisList);
         Assert.assertNotNull(moreLikeThisList);
     }
 
