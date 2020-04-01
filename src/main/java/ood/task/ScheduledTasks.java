@@ -18,6 +18,7 @@ import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class ScheduledTasks {
@@ -59,9 +60,16 @@ public class ScheduledTasks {
             List<User> userList = group.getUsers();
             HashMap<String,String> votingResultMap = new HashMap<>();
             for(User user: userList){
-                votingResultMap.put(Long.toString(user.getUserId()),"");
+                votingResultMap.put(Long.toString(user.getUserId()),"None");
             }
-
+            String votingResultString = "";
+            for(Map.Entry ele : votingResultMap.entrySet()){
+                //"key1:val1,key2:val2"
+                votingResultString += ele.getKey() + ":" + ele.getValue() + ",";
+            }
+            votingResultString = votingResultString.substring(0,votingResultString.length()-1);
+            voting.setVotingResult(votingResultString);
+            votingService.save(voting);
             groupService.sendStartVotingEmail(group,event,voting);
         }
     }
