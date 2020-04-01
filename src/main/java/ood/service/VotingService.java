@@ -2,13 +2,16 @@ package ood.service;
 
 import ood.model.Event;
 import ood.model.Group;
+import ood.model.User;
 import ood.model.Voting;
 import ood.repository.VotingDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class VotingService {
@@ -54,6 +57,26 @@ public class VotingService {
 
     public Voting changeEndTime(Voting voting, OffsetDateTime endTime){
         voting.setEndTime(endTime);
+        return votingDao.update(voting);
+    }
+
+    public Voting voteForMovie(User user, Voting voting, String ttId){
+        String votingResultString = voting.getVotingResult();
+        HashMap<String,String> votingResultMap = new HashMap<String,String>();
+        String[] votingResultPairs = votingResultString.split(",");
+        for (String pair: votingResultPairs) {
+            String[] keyValue = pair.split(":");
+            votingResultMap.put(keyValue[0], keyValue[1]);
+        }
+        String userId = Long.toString(user.getUserId());
+        votingResultMap.put(userId,ttId);
+        String votingResultStringNew = "";
+        for(Map.Entry ele : votingResultMap.entrySet()){
+            //"key1:val1,key2:val2"
+            votingResultStringNew += ele.getKey() + ":" + ele.getValue() + ",";
+        }
+        votingResultStringNew = votingResultStringNew.substring(0,votingResultStringNew.length()-1);
+        voting.setVotingResult(votingResultStringNew);
         return votingDao.update(voting);
     }
 }
