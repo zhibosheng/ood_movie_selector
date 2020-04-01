@@ -22,8 +22,8 @@ public class MovieAPIServiceTest {
 
     @Test
     public void findMovie(){
-        String ttId=  movieAPIService.findMovie("Avengers");
-        System.out.println(ttId);
+        String ttId=  movieAPIService.findMovie("The Lord of the Rings: The Return of the King");
+        System.out.println("The movie id is: "+ttId);
         Assert.assertNotNull(ttId);
     }
 
@@ -38,7 +38,8 @@ public class MovieAPIServiceTest {
 
     @Test
     public void getOverviewDetails(){
-        HashMap<String,Object> overviewDetails= movieAPIService.getOverviewDetails(ttId);
+        //HashMap<String,Object> overviewDetails= movieAPIService.getOverviewDetails(ttId);
+        HashMap<String,Object> overviewDetails= movieAPIService.getOverviewDetails("tt0167260");
         System.out.println(overviewDetails);
         System.out.println(overviewDetails.get("genres"));
         Assert.assertNotNull(overviewDetails);

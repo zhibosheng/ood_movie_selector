@@ -38,6 +38,12 @@ public class MovieAPIService {
     }
 
     public String findMovie(String movieName){
+
+        movieName = movieName.replace(" ","%20");
+        movieName = movieName.replace("?", "%253F");
+        movieName = movieName.replace("&", "%2526");
+        movieName = movieName.replace(":", "%253A");
+
         String ttId = null;
         try{
             HttpResponse<String> response = Unirest.get("https://imdb8.p.rapidapi.com/title/find?q="+movieName)
