@@ -15,6 +15,12 @@ public class MovieAPIController {
     @Autowired
     private MovieAPIController movieAPIController;
 
+    @RequestMapping(value = "/movie/default",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public HashMap getDefaultMoies(){
+        return movieAPIController.getDefaultMoies();
+    }
+
+
     @RequestMapping(value = "/movie/find/{movieName}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public String findMovie(@PathVariable(name = "movieName") String movieName){
         return movieAPIController.findMovie(movieName);

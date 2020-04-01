@@ -21,6 +21,22 @@ import java.util.Map;
 @Service
 public class MovieAPIService {
 
+    private HashMap<String,String> defaultMovies = new HashMap<String, String>();
+
+    public MovieAPIService(){
+        defaultMovies.put("Comedy Series","tt0384793");
+        defaultMovies.put("Avenger Series","tt0848228");
+        defaultMovies.put("SpiderMan Series","tt0145487");
+        defaultMovies.put("Godfather Series","tt0068646");
+        defaultMovies.put("Star Wars Series","tt252733");
+        defaultMovies.put("Matrix Series","tt0133093");
+        defaultMovies.put("Anime Series","tt6105098");
+    }
+
+    public HashMap getDefaultMoies(){
+        return defaultMovies;
+    }
+
     public String findMovie(String movieName){
         String ttId = null;
         try{
@@ -191,5 +207,7 @@ public class MovieAPIService {
         }
         return rating;
     }
+
+
 
 }

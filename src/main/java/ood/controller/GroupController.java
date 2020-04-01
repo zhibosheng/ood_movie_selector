@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -48,4 +49,9 @@ public class GroupController {
 
     @RequestMapping(value = "/group/inviteGroupEmail",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public boolean sendInviteGroupEmail(@RequestBody Group group, String email){ return groupService.sendInviteGroupEmail(group, email);}
+
+    @RequestMapping(value = "/group/default",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public HashMap getDefaultMoies(){
+        return groupService.getDefaultMoies();
+    }
 }
