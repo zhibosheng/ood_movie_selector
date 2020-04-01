@@ -16,6 +16,7 @@ public class Voting {
     @Column(name = "end_time")
     private OffsetDateTime endTime;
 
+    //key1:val1,key2:val2
     @Column(name = "voting_result")
     private String votingResult;
 

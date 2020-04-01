@@ -54,8 +54,6 @@ public class MovieAPIService {
             JSONArray results = (JSONArray)jsonObject.get("results");
             JSONObject matchResult = (JSONObject) results.get(0);
             ttId = matchResult.get("id").toString().split("/")[2];
-            System.out.println(ttId);
-            System.out.println("123");
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
