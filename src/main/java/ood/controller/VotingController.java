@@ -1,5 +1,6 @@
 package ood.controller;
 
+import ood.model.User;
 import ood.model.Voting;
 import ood.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class VotingController {
     @RequestMapping(value = "/voting/endTime",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Voting changeEndTime(@RequestBody Voting voting, OffsetDateTime endTime){
         return votingService.changeEndTime(voting,endTime);
+    }
+
+    @RequestMapping(value = "/voting/movie",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Voting voteForMovie(@RequestBody User user, Voting voting, String ttId){
+        return votingService.voteForMovie(user,voting,ttId);
     }
 
 }
