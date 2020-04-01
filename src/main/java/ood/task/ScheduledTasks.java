@@ -35,7 +35,7 @@ public class ScheduledTasks {
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() {
-        System.out.println("现在时间：" + dateFormat.format(new Date()));
+        System.out.println("time now is：" + dateFormat.format(new Date()));
     }
 
     @Scheduled(cron = "0 0 0 * * ?")
@@ -58,7 +58,7 @@ public class ScheduledTasks {
             Event event = voting.getVotingEvent();
             Group group = event.getGroup();
             List<User> userList = group.getUsers();
-            HashMap<String,String> votingResultMap = new HashMap<>();
+            HashMap<String,String> votingResultMap = new HashMap<String,String>();
             for(User user: userList){
                 votingResultMap.put(Long.toString(user.getUserId()),"None");
             }
@@ -69,7 +69,7 @@ public class ScheduledTasks {
             }
             votingResultString = votingResultString.substring(0,votingResultString.length()-1);
             voting.setVotingResult(votingResultString);
-            votingService.save(voting);
+            votingService.update(voting);
             groupService.sendStartVotingEmail(group,event,voting);
         }
     }
@@ -83,6 +83,33 @@ public class ScheduledTasks {
             Event event = voting.getVotingEvent();
             Group group = event.getGroup();
             //TO DO calculate voting result and save to database
+            String votingResultString = voting.getVotingResult();
+            HashMap<String,String> votingResultMap = new HashMap<String,String>();
+            HashMap<String,Integer> movieCountMap = new HashMap<String,Integer>();
+            String[] votingResultPairs = votingResultString.split(",");
+            for (String pair: votingResultPairs){
+                String[] keyValue = pair.split(":");
+                String userId = keyValue[0];
+                String ttId = keyValue[1];
+                votingResultMap.put(userId,ttId);
+                if(movieCountMap.containsKey(ttId)){
+                    movieCountMap.put(ttId,movieCountMap.get(ttId)+1);
+                }else{
+                    movieCountMap.put(ttId,1);
+                }
+            }
+            String winnerMovie = "";
+            Integer maxCount = 0;
+            for(Map.Entry ele : movieCountMap.entrySet()){
+                String ttId = ele.getKey().toString();
+                Integer count = (Integer) ele.getValue();
+                if(count > maxCount){
+                    winnerMovie = ttId;
+                    maxCount = count;
+                }
+            }
+            event.setMovieDecision(winnerMovie);
+            eventService.update(event);
             groupService.sendVotingResultEmail(group,event,voting);
         }
     }

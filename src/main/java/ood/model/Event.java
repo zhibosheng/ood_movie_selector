@@ -95,6 +95,11 @@ public class Event {
     }
 
     public Group getLastEventGroup() {
+        try{
+            boolean flag = group.equals(null);
+        } catch (Exception e){
+            return null;
+        }
         return lastEventGroup;
     }
 

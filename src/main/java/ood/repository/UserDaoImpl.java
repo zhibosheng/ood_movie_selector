@@ -18,9 +18,6 @@ import java.util.List;
 @Repository
 public class UserDaoImpl implements UserDao {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    private GroupDao groupDao;
-
 
     @Override
     public User save(User user){
