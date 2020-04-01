@@ -17,38 +17,42 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping(value = ("/auth"))
 public class Authentication {
+
+    @Autowired
+    private UserService userService;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired private UserService userService;
     private String errorMsg = "The name or password is wrong.";
     private String tokenKeyWord = "Authorization";
     private String tokenType = "Bearer";
 
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
+
+
+    @RequestMapping(value = "", method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity authenticate(@RequestBody User user){
+
         String token = "";
-        logger.info("Till now is ok.");
+
         try {
             logger.info(user.toString());
+            logger.info(user.getUserName()+"   "+ user.getPassword());
             User u = userService.getUserByCredentials(user.getUserName(), user.getPassword());
-            if(u == null){
-                logger.info("user is null!!!!!!!!!!!!!!!!!!");
-            }
-            else{
-                logger.info(u.getUserName()+"-------------> is ok.");
-            }
-           // if(u == null) u = userService.getUserByCredentials(user.getUserId(), user.getPassword());
-            //if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
-            //logger.debug(u.toString());
-            //token = JwtUtil.generateToken(u);
+            //logger.info(u.toString());
+
+            if(u == null) u = userService.getUserByCredentials(user.getUserId(), user.getPassword());
+            if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
+            logger.info(u.toString());
+            token = JwtUtil.generateToken(u);
         }
         catch (Exception e) {
+            e.printStackTrace();
             String msg = e.getMessage();
             if (msg == null) msg = "BAD REQUEST!";
             logger.error(msg);
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(msg);
         }
-        //return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
-        return ResponseEntity.status(HttpServletResponse.SC_OK).body("Login successfully!!!");
+        return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
+        //return ResponseEntity.status(HttpServletResponse.SC_OK).body("Login successfully!!!");
     }
 }

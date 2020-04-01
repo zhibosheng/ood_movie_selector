@@ -189,13 +189,16 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByCredentials(String name, String password){
-        String hql = "FROM User as u where lower(u.userName) = :name and u.password = :password";
+        String hql = "FROM User as u where u.userName = :name and u.password = :password";
         logger.debug(String.format("User name: %s, password: %s", name, password));
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<User> query = session.createQuery(hql);
-            query.setParameter("name", name.toLowerCase().trim());
+            query.setParameter("name", name);
             query.setParameter("password", password);
             return query.uniqueResult();
+        }
+        catch (Exception e){
+            return null;
         }
     }
 
@@ -208,6 +211,9 @@ public class UserDaoImpl implements UserDao {
             query.setParameter("id", userId);
             query.setParameter("password", password);
             return query.uniqueResult();
+        }
+        catch (Exception e){
+            return null;
         }
     }
 

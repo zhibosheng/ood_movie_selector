@@ -58,7 +58,8 @@ public class User {
     }
 
     public void setPassword(@org.jetbrains.annotations.NotNull String password) {
-        this.password = DigestUtils.md5Hex(password.trim());
+        this.password = password;
+        //this.password = DigestUtils.md5Hex(password.trim());
     }
 
     public String getEmail() {
@@ -118,7 +119,7 @@ public class User {
         return str;
     }
 
-
+    @Override
     public int hashCode() { return Objects.hash(userId,userName);}
 
 
