@@ -118,6 +118,15 @@ public class UserDaoTest {
         Assert.assertEquals(UserDao.getUserWithGroup(id).getOwnGroups().size(), 2);
     }
 
+    @Test
+    public void getUserByCredentials(){
+        String name = userRecord2.getUserName();
+        String password = userRecord2.getPassword();
+        Assert.assertEquals(UserDao.getUserByCredentials(name,password).getPhone(),userRecord2.getPhone());
+        long id = userRecord2.getUserId();
+        Assert.assertEquals(UserDao.getUserByCredentials(id,password).getPhone(),userRecord2.getPhone());
+    }
+
     @After
     public void cleanUp(){
         if(UserDao.getOwnGroups(userRecord2)!=null) {

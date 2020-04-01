@@ -1,5 +1,7 @@
 package ood.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.*;
@@ -56,7 +58,8 @@ public class User {
     }
 
     public void setPassword(@org.jetbrains.annotations.NotNull String password) {
-        this.password = DigestUtils.md5Hex(password.trim());
+        this.password = password;
+        //this.password = DigestUtils.md5Hex(password.trim());
     }
 
     public String getEmail() {
@@ -104,7 +107,21 @@ public class User {
     }
 
     @Override
+    public String toString() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String str = null;
+        try {
+            str = objectMapper.writeValueAsString(this);
+        }
+        catch(JsonProcessingException jpe) {
+            jpe.printStackTrace();
+        }
+        return str;
+    }
+
+    @Override
     public int hashCode() { return Objects.hash(userId,userName);}
+
 
     @Override
     public boolean equals(Object o){
