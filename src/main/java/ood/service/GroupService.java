@@ -19,6 +19,9 @@ public class GroupService {
     private GroupDao groupDao;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MessageService messageService;
 
     @Autowired
@@ -47,6 +50,13 @@ public class GroupService {
     public Group createGroup(User user){
         Group group = new Group();
         group.setModerator(user);
+        List<Group> ownGroupList = user.getOwnGroups();
+        ownGroupList.add(group);
+        user.setOwnGroups(ownGroupList);
+        List<Group> joinGroupList = user.getJoinGroups();
+        joinGroupList.add(group);
+        user.setJoinGroups(joinGroupList);
+        userService.save(user);
         return groupDao.save(group);
     }
 

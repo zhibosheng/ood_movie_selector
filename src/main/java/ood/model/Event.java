@@ -18,6 +18,7 @@ public class Event {
     @JoinColumn(name = "group_id")
     private Group group;
 
+    //ttId1,ttId2
     @Column(name = "selected_movies")
     private String selectedMovies;
 
@@ -27,7 +28,6 @@ public class Event {
     @Column(name = "show_time")
     private OffsetDateTime showTime;
 
-    //mingqian modify 2020-2-1
     @Column(name = "movie_decision")
     private String movieDecision;
 
@@ -93,11 +93,11 @@ public class Event {
         this.showTime = showTime;
     }
 
-    //mingqian modify 2020-2-1
+
     public String getMovieDecision(){
         return movieDecision;
     }
-    //mingqian modify 2020-2-1
+
     public void setMovieDecision(String movieDecision) {
         this.movieDecision = movieDecision;
     }
