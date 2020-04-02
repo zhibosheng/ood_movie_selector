@@ -15,10 +15,7 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ScheduledTasks {
@@ -57,7 +54,7 @@ public class ScheduledTasks {
         for(Voting voting: votingList){
             Event event = voting.getVotingEvent();
             Group group = event.getGroup();
-            List<User> userList = group.getUsers();
+            Set<User> userList = group.getUsers();
             HashMap<String,String> votingResultMap = new HashMap<String,String>();
             for(User user: userList){
                 votingResultMap.put(Long.toString(user.getUserId()),"None");

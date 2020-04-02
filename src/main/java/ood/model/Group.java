@@ -1,7 +1,10 @@
 package ood.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "groups")
@@ -25,8 +28,8 @@ public class Group {
     @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
     private Event lastEvent;
 
-    @ManyToMany(mappedBy = "joinGroups")
-    private List<User> users;
+    @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Event> events;
@@ -83,7 +86,7 @@ public class Group {
         this.lastEvent = lastEvent;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         try{
             int size = users.size();
         }
@@ -93,7 +96,7 @@ public class Group {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

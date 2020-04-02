@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -36,6 +37,7 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+
     @Override
     public User update(User user){
         Transaction transaction = null;
@@ -43,6 +45,7 @@ public class UserDaoImpl implements UserDao {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
             session.saveOrUpdate(user);
+            session.persist(user);
             transaction.commit();
         }catch (Exception e){
             if(transaction != null) transaction.rollback();
@@ -212,6 +215,92 @@ public class UserDaoImpl implements UserDao {
         catch (Exception e){
             return null;
         }
+    }
+
+    @Override
+    public User addGroup(User user, Group group){
+        Transaction transaction = null;
+        try{
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+            user.getJoinGroups().add(group);
+            group.getUsers().add(user);
+
+            session.update(user);
+
+            transaction.commit();
+        }catch (Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+        return user;
+    }
+
+    @Override
+    public User leaveGroup(User user, Group group){
+        Transaction transaction = null;
+        try{
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+            boolean isSuccess = user.getJoinGroups().remove(group);
+            System.out.println(isSuccess);
+            boolean res = group.getUsers().remove(user);
+            System.out.println(res);
+
+            session.update(user);
+
+            transaction.commit();
+        }catch (Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+        return user;
+    }
+
+    @Override
+    public User addOwnGroup(User user, Group group){
+        Transaction transaction = null;
+        try{
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+            user.getOwnGroups().add(group);
+
+            session.update(user);
+
+            transaction.commit();
+        }catch (Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+        return user;
+    }
+
+
+
+    @Override
+    public User deleteOwnGroup(User user, Group group){
+        Transaction transaction = null;
+        try{
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+            user.getJoinGroups().remove(group);
+
+            session.update(user);
+
+            transaction.commit();
+        }catch (Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+        return user;
     }
 
 }

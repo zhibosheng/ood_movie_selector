@@ -18,4 +18,9 @@ public interface UserDao {
     User getUserWithGroup(long userId);
     User getUserByCredentials(String name, String password);
     User getUserByCredentials(long userId, String password);
+    User addGroup(User user, Group group);
+    User leaveGroup(User user, Group group);
+    User addOwnGroup(User user, Group group);
+    User deleteOwnGroup(User user, Group group);
+
 }

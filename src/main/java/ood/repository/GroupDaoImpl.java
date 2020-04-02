@@ -128,4 +128,39 @@ public class GroupDaoImpl implements GroupDao{
         }
 
     }
+
+    @Override
+    public List<User> getUsers(Group group){
+        String hql = "SELECT u FROM User u left JOIN fetch u.joinGroups g where g.groupId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<User> query = session.createQuery(hql);
+            query.setParameter("id", group.getGroupId());
+            return query.list();
+        }
+    }
+
+    @Override
+    public Group deleteUser(Group group, User user){
+        Transaction transaction = null;
+        try{
+            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+            transaction = session.beginTransaction();
+
+
+
+            group.getUsers().remove(user);
+            user.getJoinGroups().remove(group);
+
+
+            session.update(group);
+
+            transaction.commit();
+        }catch (Exception e){
+            if(transaction != null) transaction.rollback();
+            logger.error(e.getMessage());
+        }
+        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+        return group;
+    }
 }

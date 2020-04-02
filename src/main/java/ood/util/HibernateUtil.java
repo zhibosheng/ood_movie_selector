@@ -1,5 +1,6 @@
 package ood.util;
 
+import com.fasterxml.classmate.AnnotationConfiguration;
 import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -21,6 +22,18 @@ public class HibernateUtil {
     -Ddatabase.user=admin
     -Ddatabase.password=molly
     */
+
+//    static{
+//        try{
+//            sessionFactory = new AnnotationConfiguration().configure().buildSessionFacotry();
+//        }
+//        catch (Throwable ex){
+//            System.err.println("Initial SessionFactory creation failed." + ex);
+//            throw new ExceptionInInitializerError(ex);
+//        }
+//    }
+
+
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {

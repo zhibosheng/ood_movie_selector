@@ -15,5 +15,9 @@ public interface GroupDao {
     Group getGroupWithEvent(long groupId);
     List<Group> getAllGroups();
     List<Event> getHistory(Group group);
+    List<User> getUsers(Group group);
+    //Group changeModerator(Group group, User user);
+
+    Group deleteUser(Group group, User user);
 //    List<User> getGroupWithUsers(Group group);
 }

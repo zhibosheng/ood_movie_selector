@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class GroupService {
@@ -92,7 +93,7 @@ public class GroupService {
                           group.getGroupName() + " has a new event, which is created by " + group.getModerator() + ". "+
                           "This movie watching eventwill start at " + event.getShowTime() + "." +
                           "Hope you can participate.";
-        List<User> users = group.getUsers();
+        Set<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -119,7 +120,7 @@ public class GroupService {
                           "please clickthe link: <a href='https://aws.amazon.com/ses/'> click me </a> to participate in the voting. " +
                           "Voting will end at " + voting.getEndTime() + ", " + "please complete the voting before the end time. " +
                           "Your vote will determine the final viewing result.";;
-        List<User> users = group.getUsers();
+        Set<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -142,7 +143,7 @@ public class GroupService {
         String TEXTBODY = "Hi, " +
                           "Voting on the " + group.getGroupName() + " you joined has ended. " +
                           "As a result, " + event.getMovieDecision() + " became the movie of choice.";;
-        List<User> users = group.getUsers();
+        Set<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -165,7 +166,7 @@ public class GroupService {
         String TEXTBODY = "Hi, " +
                           group.getGroupName() + " will start watching the " + event.getMovieDecision() + " in ten minutes." +
                           "Hope you will be on time.";
-        List<User> users = group.getUsers();
+        Set<User> users = group.getUsers();
         for(User user:users){
             String TO = user.getEmail();
             try {

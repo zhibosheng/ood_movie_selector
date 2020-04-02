@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -69,32 +70,22 @@ public class UserService {
 
 
     public User addOwnGroup(User user,Group group){
-        List<Group> ownGroupsList = userDao.getOwnGroups(user);
-        ownGroupsList.add(group);
-        user.setOwnGroups(ownGroupsList);
-        return userDao.update(user);
+        return userDao.addOwnGroup(user, group);
     }
 
     public User removeOwnGroup(User user,Group group){
-        List<Group> ownGroupsList = userDao.getOwnGroups(user);
-        ownGroupsList.remove(group);
-        user.setOwnGroups(ownGroupsList);
-        groupService.delete(group);
-        return userDao.update(user);
+
+        return userDao.deleteOwnGroup(user, group);
     }
 
     public User joinGroup(User user,Group group){
-        List<Group> joinGroupsList = userDao.getJoinGroups(user);
-        joinGroupsList.add(group);
-        user.setJoinGroups(joinGroupsList);
-        return userDao.update(user);
+
+        return userDao.addGroup(user, group);
     }
 
     public User leaveGroup(User user,Group group){
-        List<Group> joinGroupsList = userDao.getJoinGroups(user);
-        joinGroupsList.remove(group);
-        user.setJoinGroups(joinGroupsList);
-        return userDao.update(user);
+
+        return userDao.leaveGroup(user, group);
     }
 
     public User getUserWithGroup(long userId){

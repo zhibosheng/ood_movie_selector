@@ -32,11 +32,11 @@ public class UserDaoTest {
     @Before
     public void setup() {
 
-        userRecord1.setUserName("Alice");
-        userRecord1.setEmail("12324@qq.com");
-        userRecord1.setPhone("2028538799");
-        userRecord1.setPassword("123456");
-
+//        userRecord1.setUserName("Alice");
+//        userRecord1.setEmail("12324@qq.com");
+//        userRecord1.setPhone("2028538799");
+//        userRecord1.setPassword("123456");
+//
         userRecord2.setUserName("Bob");
         userRecord2.setEmail("7788@qq.com");
         userRecord2.setPhone("2097896879");
@@ -47,10 +47,11 @@ public class UserDaoTest {
         groupRecord1.setGroupName("groupA");
         groupRecord1.setGroupDescription("This is A");
         GroupDao.save(groupRecord1);
-        groupRecord2.setModerator(userRecord2);
-        groupRecord2.setGroupName("groupB");
-        groupRecord2.setGroupDescription("This is B");
-        GroupDao.save(groupRecord2);
+
+//        groupRecord2.setModerator(userRecord2);
+//        groupRecord2.setGroupName("groupB");
+//        groupRecord2.setGroupDescription("This is B");
+//        GroupDao.save(groupRecord2);
 
     }
     @Test
@@ -102,7 +103,7 @@ public class UserDaoTest {
 
     @Test
     public void getJoinGroups(){
-        List<Group> l = new LinkedList<>();
+        Set<Group> l = new HashSet<>();
         l.add(groupRecord1);
         l.add(groupRecord2);
         userRecord2.setJoinGroups(l);
@@ -127,16 +128,29 @@ public class UserDaoTest {
         Assert.assertEquals(UserDao.getUserByCredentials(id,password).getPhone(),userRecord2.getPhone());
     }
 
+    @Test
+    public void addGroup(){
+        UserDao.addGroup(userRecord2,groupRecord1);
+        Assert.assertEquals(userRecord2.getJoinGroups().size(), 1);
+    }
+
+    @Test
+    public void leaveGroup(){
+        UserDao.leaveGroup(UserDao.getUserById(220), GroupDao.getGroupById(235));
+        Assert.assertEquals(GroupDao.getGroupById(235).getUsers().size(),0);
+
+    }
+
     @After
     public void cleanUp(){
-        if(UserDao.getOwnGroups(userRecord2)!=null) {
-            GroupDao.delete(groupRecord1);
-            GroupDao.delete(groupRecord2);
-        }
+//        if(UserDao.getOwnGroups(userRecord2)!=null) {
+//            //GroupDao.delete(groupRecord1);
+//            GroupDao.delete(groupRecord2);
+//        }
+//
+//        UserDao.delete(userRecord1);
 
-        UserDao.delete(userRecord1);
-
-        if(userRecord2 != null) UserDao.delete(userRecord2);
+       // if(userRecord2 != null) UserDao.delete(userRecord2);
 
     }
 
