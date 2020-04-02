@@ -54,9 +54,9 @@ public class ScheduledTasks {
         for(Voting voting: votingList){
             Event event = voting.getVotingEvent();
             Group group = event.getGroup();
-            Set<User> userList = group.getUsers();
+            Set<User> userSet = group.getUsers();
             HashMap<String,String> votingResultMap = new HashMap<String,String>();
-            for(User user: userList){
+            for(User user: userSet){
                 votingResultMap.put(Long.toString(user.getUserId()),"None");
             }
             String votingResultString = "";

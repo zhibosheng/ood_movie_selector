@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -51,10 +52,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Group> getOwnGroups(User user){ return userService.getOwnGroups(user);}
+    public Set<Group> getOwnGroups(User user){ return userService.getOwnGroups(user);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
+    public Set<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
 
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User addOwnGroup(@RequestBody User user){ return userService.addOwnGroup(user);}

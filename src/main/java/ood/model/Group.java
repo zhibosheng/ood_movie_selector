@@ -32,7 +32,7 @@ public class Group {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Event> events;
+    private Set<Event> events;
 
 
 
@@ -100,7 +100,7 @@ public class Group {
         this.users = users;
     }
 
-    public List<Event> getEvents() {
+    public Set<Event> getEvents() {
         try{
             int size = events.size();
         }
@@ -110,7 +110,7 @@ public class Group {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(Set<Event> events) {
         this.events = events;
     }
 }

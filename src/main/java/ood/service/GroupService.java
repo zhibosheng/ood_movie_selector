@@ -50,12 +50,12 @@ public class GroupService {
     public Group createGroup(User user){
         Group group = new Group();
         group.setModerator(user);
-        Set<Group> ownGroupList = user.getOwnGroups();
-        ownGroupList.add(group);
-        user.setOwnGroups(ownGroupList);
-        Set<Group> joinGroupList = user.getJoinGroups();
-        joinGroupList.add(group);
-        user.setJoinGroups(joinGroupList);
+        Set<Group> ownGroupSet = user.getOwnGroups();
+        ownGroupSet.add(group);
+        user.setOwnGroups(ownGroupSet);
+        Set<Group> joinGroupSet = user.getJoinGroups();
+        joinGroupSet.add(group);
+        user.setJoinGroups(joinGroupSet);
         userService.save(user);
         return groupDao.save(group);
     }

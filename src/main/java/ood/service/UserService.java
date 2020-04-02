@@ -55,11 +55,11 @@ public class UserService {
         return userDao.getUserByPhone(phone);
     }
 
-    public List<Group> getOwnGroups(User user){
+    public Set<Group> getOwnGroups(User user){
         return userDao.getOwnGroups(user);
     }
 
-    public List<Group> getJoinGroups(User user){
+    public Set<Group> getJoinGroups(User user){
         return userDao.getJoinGroups(user);
     }
 
@@ -80,12 +80,12 @@ public class UserService {
 
     public User joinGroup(User user,Group group){
 
-        return userDao.addGroup(user, group);
+        return userDao.addJoinGroup(user, group);
     }
 
     public User leaveGroup(User user,Group group){
 
-        return userDao.leaveGroup(user, group);
+        return userDao.leaveJoinGroup(user, group);
     }
 
     public User getUserWithGroup(long userId){

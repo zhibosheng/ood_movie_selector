@@ -6,6 +6,7 @@ import ood.model.User;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Set;
 
 public interface GroupDao {
     Group save(Group group);
@@ -15,7 +16,7 @@ public interface GroupDao {
     Group getGroupWithEvent(long groupId);
     List<Group> getAllGroups();
     List<Event> getHistory(Group group);
-    List<User> getUsers(Group group);
+    Set<User> getUsers(Group group);
     //Group changeModerator(Group group, User user);
 
     Group deleteUser(Group group, User user);
