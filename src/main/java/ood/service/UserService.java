@@ -63,8 +63,8 @@ public class UserService {
         return userDao.getJoinGroups(user);
     }
 
-    public User addOwnGroup(User user){
-        Group group = groupService.createGroup(user);
+    public User addOwnGroup(User user,String groupName,String groupDescription){
+        Group group = groupService.createGroup(user,groupName,groupDescription);
         return userService.addOwnGroup(user,group);
     }
 
