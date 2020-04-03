@@ -1,5 +1,6 @@
 package ood.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -28,12 +29,14 @@ public class User {
     private String phone;
 
     @OneToMany(mappedBy = "moderator", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Group> ownGroups = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "users_groups",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "group_id") })
+    @JsonIgnore
     private Set<Group> joinGroups = new HashSet<>();
 
     public long getUserId() {

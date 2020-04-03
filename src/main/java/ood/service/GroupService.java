@@ -52,14 +52,15 @@ public class GroupService {
         group.setModerator(user);
         group.setGroupName(groupName);
         group.setGroupDescription(groupDescription);
+        Group res = groupDao.save(group);
         Set<Group> ownGroupSet = user.getOwnGroups();
-        ownGroupSet.add(group);
+        ownGroupSet.add(res);
         user.setOwnGroups(ownGroupSet);
         Set<Group> joinGroupSet = user.getJoinGroups();
-        joinGroupSet.add(group);
+        joinGroupSet.add(res);
         user.setJoinGroups(joinGroupSet);
         userService.save(user);
-        return groupDao.save(group);
+        return res;
     }
 
     public List<Event> getHistory(Group group){
