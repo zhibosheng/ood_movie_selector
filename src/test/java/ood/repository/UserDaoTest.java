@@ -97,8 +97,8 @@ public class UserDaoTest {
 
     @Test
     public void getOwnGroups(){
-        List<Group> list = UserDao.getOwnGroups(userRecord2);
-        Assert.assertEquals(2, list.size());
+        Set<Group> set = UserDao.getOwnGroups(userRecord2);
+        Assert.assertEquals(2, set.size());
     }
 
     @Test
@@ -109,8 +109,8 @@ public class UserDaoTest {
         userRecord2.setJoinGroups(l);
         UserDao.update(userRecord2);
 
-        List<Group> list = UserDao.getJoinGroups(userRecord2);
-        Assert.assertEquals(2, list.size());
+        Set<Group> set = UserDao.getJoinGroups(userRecord2);
+        Assert.assertEquals(2, set.size());
     }
 
     @Test
@@ -130,13 +130,13 @@ public class UserDaoTest {
 
     @Test
     public void addGroup(){
-        UserDao.addGroup(userRecord2,groupRecord1);
+        UserDao.addJoinGroup(userRecord2,groupRecord1);
         Assert.assertEquals(userRecord2.getJoinGroups().size(), 1);
     }
 
     @Test
     public void leaveGroup(){
-        UserDao.leaveGroup(UserDao.getUserById(220), GroupDao.getGroupById(235));
+        UserDao.leaveJoinGroup(UserDao.getUserById(220), GroupDao.getGroupById(235));
         Assert.assertEquals(GroupDao.getGroupById(235).getUsers().size(),0);
 
     }

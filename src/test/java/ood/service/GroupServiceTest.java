@@ -33,11 +33,8 @@ public class GroupServiceTest {
         userRecord1.setPhone("2028538799");
         userRecord1.setPassword("123456");
         userService.save(userRecord1);
+        groupService.createGroup(userRecord1,"groupA","This is A");
 
-        groupRecord1.setModerator(userRecord1);
-        groupRecord1.setGroupName("groupA");
-        groupRecord1.setGroupDescription("This is A");
-        groupService.save(groupRecord1);
     }
 
 }
