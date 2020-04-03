@@ -45,6 +45,7 @@ public class Authentication {
             if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
             logger.info(u.toString());
             token = JwtUtil.generateToken(u);
+            logger.info(token);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -55,5 +56,10 @@ public class Authentication {
         }
         return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
         //return ResponseEntity.status(HttpServletResponse.SC_OK).body("Login successfully!!!");
+    }
+
+    @RequestMapping(value = "registration", method = RequestMethod.POST, produces = "application/json")
+    public User save(@RequestBody User user){
+        return userService.save(user);
     }
 }

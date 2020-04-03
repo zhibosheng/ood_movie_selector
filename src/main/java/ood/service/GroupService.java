@@ -59,7 +59,7 @@ public class GroupService {
         Set<Group> joinGroupSet = user.getJoinGroups();
         joinGroupSet.add(res);
         user.setJoinGroups(joinGroupSet);
-        userService.save(user);
+        userService.update(user);
         return res;
     }
 
