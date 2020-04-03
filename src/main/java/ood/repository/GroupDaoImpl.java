@@ -146,27 +146,5 @@ public class GroupDaoImpl implements GroupDao{
         }
     }
 
-    @Override
-    public Group deleteUser(Group group, User user){
-        Transaction transaction = null;
-        try{
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
 
-
-
-            group.getUsers().remove(user);
-            user.getJoinGroups().remove(group);
-
-
-            session.update(group);
-
-            transaction.commit();
-        }catch (Exception e){
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
-        return group;
-    }
 }

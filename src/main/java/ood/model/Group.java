@@ -1,10 +1,10 @@
 package ood.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "groups")
@@ -112,5 +112,30 @@ public class Group {
 
     public void setEvents(Set<Event> events) {
         this.events = events;
+    }
+
+//    @Override
+//    public String toString() {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String str = null;
+//        try {
+//            str = objectMapper.writeValueAsString(this);
+//        }
+//        catch(JsonProcessingException jpe) {
+//            jpe.printStackTrace();
+//        }
+//        return str;
+//    }
+//
+    @Override
+    public int hashCode() { return Objects.hash(groupId,groupName);}
+
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return groupId == group.groupId;
     }
 }

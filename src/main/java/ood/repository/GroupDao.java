@@ -19,6 +19,5 @@ public interface GroupDao {
     Set<User> getUsers(Group group);
     //Group changeModerator(Group group, User user);
 
-    Group deleteUser(Group group, User user);
-//    List<User> getGroupWithUsers(Group group);
+    //List<User> getGroupWithUsers(Group group);
 }

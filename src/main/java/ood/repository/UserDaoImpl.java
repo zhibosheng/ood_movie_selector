@@ -19,6 +19,7 @@ import java.util.Set;
 
 @Repository
 public class UserDaoImpl implements UserDao {
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -227,47 +228,47 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    @Override
-    public User addOwnGroup(User user, Group group){
-        Transaction transaction = null;
-        try{
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
+//    @Override
+//    public User addOwnGroup(User user, Group group){
+//        Transaction transaction = null;
+//        try{
+//            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//            transaction = session.beginTransaction();
+//
+//            user.getOwnGroups().add(group);
+//
+//            session.update(user);
+//
+//            transaction.commit();
+//        }catch (Exception e){
+//            if(transaction != null) transaction.rollback();
+//            logger.error(e.getMessage());
+//        }
+//        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+//        return user;
+//    }
 
-            user.getOwnGroups().add(group);
-
-            session.update(user);
-
-            transaction.commit();
-        }catch (Exception e){
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
-        return user;
-    }
 
 
-
-    @Override
-    public User deleteOwnGroup(User user, Group group){
-        Transaction transaction = null;
-        try{
-            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-            transaction = session.beginTransaction();
-
-            user.getJoinGroups().remove(group);
-
-            session.update(user);
-
-            transaction.commit();
-        }catch (Exception e){
-            if(transaction != null) transaction.rollback();
-            logger.error(e.getMessage());
-        }
-        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
-        return user;
-    }
+//    @Override
+//    public User deleteOwnGroup(User user, Group group){
+//        Transaction transaction = null;
+//        try{
+//            Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//            transaction = session.beginTransaction();
+//
+//            user.getJoinGroups().remove(group);
+//
+//            session.update(user);
+//
+//            transaction.commit();
+//        }catch (Exception e){
+//            if(transaction != null) transaction.rollback();
+//            logger.error(e.getMessage());
+//        }
+//        //if (group!=null) logger.debug(String.format("The group %s was inserted into the table.", group.toString()));
+//        return user;
+//    }
 
     @Override
     public User addJoinGroup(User user, Group group){
@@ -276,8 +277,13 @@ public class UserDaoImpl implements UserDao {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
 
-            user.getJoinGroups().add(group);
-            group.getUsers().add(user);
+            Set<Group> joinGroupSet = getJoinGroups(user);
+
+            joinGroupSet.add(group);
+            user.setJoinGroups(joinGroupSet);
+
+            //user.getJoinGroups().add(group);
+            //group.getUsers().add(user);
 
             session.update(user);
 
@@ -297,10 +303,11 @@ public class UserDaoImpl implements UserDao {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
 
-            boolean isSuccess = user.getJoinGroups().remove(group);
-            System.out.println(isSuccess);
-            boolean res = group.getUsers().remove(user);
-            System.out.println(res);
+            Set<Group> joinGroupSet = getJoinGroups(user);
+
+            joinGroupSet.remove(group);
+            user.setJoinGroups(joinGroupSet);
+
 
             session.update(user);
 

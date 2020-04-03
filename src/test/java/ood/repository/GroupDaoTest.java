@@ -132,51 +132,6 @@ public class GroupDaoTest {
 //
 //    }
 
-    @Test
-    public void deleteUser(){
-
-            groupDao.deleteUser(groupDao.getGroupById(232),UserDao.getUserById(218));
-            Assert.assertEquals(groupDao.getGroupById(232).getUsers().size(),0);
-
-
-//        try{
-//            sessionFactory = HibernateUtil.getSessionFactory();
-//            session = sessionFactory.getCurrentSession();
-//            session.beginTransaction();
-//            //List<Group> joinGroupsList = UserDao.getJoinGroups(userRecord1);
-//            User userRecord1 = new User();
-//            userRecord1.setUserName("Alice");
-//            userRecord1.setEmail("12324@qq.com");
-//            userRecord1.setPhone("2028538799");
-//            userRecord1.setPassword("123456");
-//            //UserDao.save(userRecord1);
-//
-//            Group groupRecord1 = new Group();
-//            groupRecord1.setModerator(userRecord1);
-//            groupRecord1.setGroupName("groupA");
-//            groupRecord1.setGroupDescription("This is A");
-//            //groupDao.save(groupRecord1);
-//
-//            List<Group> joinGroupsList = new LinkedList<>();
-//
-//            joinGroupsList.add(groupRecord1);
-//            System.out.println("ATTENTION!!!! "+groupRecord1.getGroupId());
-//            System.out.println("ATTENTION!!!! "+userRecord1.getUserId());
-//            userRecord1.setJoinGroups(joinGroupsList);
-//            session.save(userRecord1);
-//            session.getTransaction().commit();
-//            System.out.println("ATTENTION!!!! "+groupRecord1.getGroupId());
-//            System.out.println("ATTENTION!!!! "+userRecord1.getUserId());
-//            System.out.println(userRecord1.getJoinGroups().size());
-//        }
-//        catch (Exception e){
-//            if(session != null){
-//                session.getTransaction().rollback();
-//            }
-//        }
-//        int num = userRecord1.getJoinGroups().size();
-//        Assert.assertEquals(num, 1);
-    }
 
     @Test
     public void getAllGroups(){
