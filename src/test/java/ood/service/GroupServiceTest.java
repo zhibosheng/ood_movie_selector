@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Set;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBoot.class)
 public class GroupServiceTest {
@@ -34,7 +36,9 @@ public class GroupServiceTest {
         userRecord1.setPassword("123456");
         userService.save(userRecord1);
         groupService.createGroup(userRecord1,"groupA","This is A");
-
+        Set<Group> ownGroups =  userService.getOwnGroups(userRecord1);
+        Set<Group> joinGroups = userService.getJoinGroups(userRecord1);
+        System.out.println("check groups");
     }
 
 }
