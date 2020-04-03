@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class GroupDaoImpl implements GroupDao{
@@ -130,13 +132,17 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
-    public List<User> getUsers(Group group){
+    public Set<User> getUsers(Group group){
         String hql = "SELECT u FROM User u left JOIN fetch u.joinGroups g where g.groupId = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<User> query = session.createQuery(hql);
             query.setParameter("id", group.getGroupId());
-            return query.list();
+            Set<User> set = new HashSet<>();
+            for(User u : query.list()){
+                set.add(u);
+            }
+            return set;
         }
     }
 

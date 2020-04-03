@@ -4,6 +4,7 @@ import ood.model.Group;
 import ood.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserDao {
     User save(User user);
@@ -13,8 +14,8 @@ public interface UserDao {
     User getUserByName(String userName);
     User getUserByEmail(String email);
     User getUserByPhone(String phone);
-    List<Group> getOwnGroups(User user);
-    List<Group> getJoinGroups(User user);
+    Set<Group> getOwnGroups(User user);
+    Set<Group> getJoinGroups(User user);
     User getUserWithGroup(long userId);
     User getUserByCredentials(String name, String password);
     User getUserByCredentials(long userId, String password);

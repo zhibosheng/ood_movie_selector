@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -147,26 +148,35 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<Group> getOwnGroups(User user) {
+    public Set<Group> getOwnGroups(User user) {
 
         String hql = "FROM Group as g left join fetch g.moderator where g.moderator.userId = :id";
 
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<Group> query = session.createQuery(hql);
             query.setParameter("id", user.getUserId());
-            return query.list();
+            Set<Group> set = new HashSet<>();
+            for(Group u : query.list()){
+                set.add(u);
+            }
+            return set;
+
 
         }
     }
 
     @Override
-    public List<Group> getJoinGroups (User user){
+    public Set<Group> getJoinGroups (User user){
             String hql = "SELECT g FROM Group g left JOIN fetch g.users u where u.userId = :id";
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
                 Query<Group> query = session.createQuery(hql);
                 query.setParameter("id", user.getUserId());
-                return query.list();
+                Set<Group> set = new HashSet<>();
+                for(Group u : query.list()){
+                    set.add(u);
+                }
+                return set;
             }
         }
 
