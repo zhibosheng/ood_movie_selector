@@ -28,7 +28,7 @@ public class User {
     private String phone;
 
     @OneToMany(mappedBy = "moderator", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private Set<Group> ownGroups;
+    private Set<Group> ownGroups = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "users_groups",
