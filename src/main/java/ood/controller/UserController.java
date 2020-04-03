@@ -58,7 +58,7 @@ public class UserController {
     public Set<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
 
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User addOwnGroup(@RequestBody User user){ return userService.addOwnGroup(user);}
+    public User addOwnGroup(@RequestBody User user,String groupName,String groupDescription){ return userService.addOwnGroup(user,groupName,groupDescription);}
 
     @RequestMapping(value = "/user/manageGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User addOwnGroup(@RequestBody User user, Group group){ return userService.addOwnGroup(user,group);}
