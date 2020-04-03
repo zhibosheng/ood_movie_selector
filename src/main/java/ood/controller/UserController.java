@@ -67,9 +67,9 @@ public class UserController {
     public User removeOwnGroup(@RequestBody User user, Group group){ return userService.removeOwnGroup(user,group);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User joinGroup(@RequestBody User user, Group group){ return userService.joinGroup(user,group);}
+    public User joinGroup(@RequestBody User user, Group group){ return userService.addjoinGroup(user,group);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User leaveGroup(@RequestBody User user, Group group){ return userService.leaveGroup(user,group);}
+    public User leaveGroup(@RequestBody User user, Group group){ return userService.leaveJoinGroup(user,group);}
 
 }

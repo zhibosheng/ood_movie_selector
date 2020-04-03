@@ -78,12 +78,12 @@ public class UserService {
         return userDao.deleteOwnGroup(user, group);
     }
 
-    public User joinGroup(User user,Group group){
+    public User addjoinGroup(User user,Group group){
 
         return userDao.addJoinGroup(user, group);
     }
 
-    public User leaveGroup(User user,Group group){
+    public User leaveJoinGroup(User user,Group group){
 
         return userDao.leaveJoinGroup(user, group);
     }
