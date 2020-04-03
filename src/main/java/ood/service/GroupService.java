@@ -47,9 +47,11 @@ public class GroupService {
         return groupDao.getGroupWithEvent(groupId);
     }
 
-    public Group createGroup(User user){
+    public Group createGroup(User user,String groupName, String groupDescription){
         Group group = new Group();
         group.setModerator(user);
+        group.setGroupName(groupName);
+        group.setGroupDescription(groupDescription);
         Set<Group> ownGroupSet = user.getOwnGroups();
         ownGroupSet.add(group);
         user.setOwnGroups(ownGroupSet);

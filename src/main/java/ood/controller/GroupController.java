@@ -38,8 +38,8 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/creation",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Group createGroup(@RequestBody User user){
-        return groupService.createGroup(user);
+    public Group createGroup(@RequestBody User user,String groupName, String groupDescription){
+        return groupService.createGroup(user,groupName,groupDescription);
     }
 
     @RequestMapping(value = "/group/history",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
