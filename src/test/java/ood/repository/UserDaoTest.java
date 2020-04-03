@@ -48,10 +48,10 @@ public class UserDaoTest {
         groupRecord1.setGroupDescription("This is A");
         GroupDao.save(groupRecord1);
 
-//        groupRecord2.setModerator(userRecord2);
-//        groupRecord2.setGroupName("groupB");
-//        groupRecord2.setGroupDescription("This is B");
-//        GroupDao.save(groupRecord2);
+        groupRecord2.setModerator(userRecord2);
+        groupRecord2.setGroupName("groupB");
+        groupRecord2.setGroupDescription("This is B");
+        GroupDao.save(groupRecord2);
 
     }
     @Test
@@ -143,12 +143,12 @@ public class UserDaoTest {
 
     @After
     public void cleanUp(){
-//        if(UserDao.getOwnGroups(userRecord2)!=null) {
-//            //GroupDao.delete(groupRecord1);
-//            GroupDao.delete(groupRecord2);
-//        }
-//
-//        UserDao.delete(userRecord1);
+        if(UserDao.getOwnGroups(userRecord2)!=null) {
+            //GroupDao.delete(groupRecord1);
+            //GroupDao.delete(groupRecord2);
+        }
+
+        //UserDao.delete(userRecord1);
 
        // if(userRecord2 != null) UserDao.delete(userRecord2);
 

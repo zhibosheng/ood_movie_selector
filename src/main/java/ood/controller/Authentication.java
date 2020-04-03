@@ -38,7 +38,8 @@ public class Authentication {
             logger.info(user.toString());
             logger.info(user.getUserName()+"   "+ user.getPassword());
             User u = userService.getUserByCredentials(user.getUserName(), user.getPassword());
-            //logger.info(u.toString());
+
+            logger.info(u.toString());
 
             if(u == null) u = userService.getUserByCredentials(user.getUserId(), user.getPassword());
             if (u == null) return ResponseEntity.status(HttpServletResponse.SC_NON_AUTHORITATIVE_INFORMATION).body(errorMsg);
