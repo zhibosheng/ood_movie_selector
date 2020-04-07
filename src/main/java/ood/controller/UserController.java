@@ -57,14 +57,14 @@ public class UserController {
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Set<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
 
-    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User addOwnGroup(@RequestBody User user,String groupName,String groupDescription){ return userService.addOwnGroup(user,groupName,groupDescription);}
+//    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public User addOwnGroup(@RequestBody User user,String groupName,String groupDescription){ return userService.addOwnGroup(user,groupName,groupDescription);}
 
-    @RequestMapping(value = "/user/manageGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User addOwnGroup(@RequestBody User user, Group group){ return userService.addOwnGroup(user,group);}
+//    @RequestMapping(value = "/user/manageGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public User addOwnGroup(@RequestBody User user, Group group){ return userService.addOwnGroup(user,group);}
 
-    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User removeOwnGroup(@RequestBody User user, Group group){ return userService.removeOwnGroup(user,group);}
+//    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
+//    public User removeOwnGroup(@RequestBody User user, Group group){ return userService.removeOwnGroup(user,group);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User joinGroup(@RequestBody User user, Group group){ return userService.addjoinGroup(user,group);}

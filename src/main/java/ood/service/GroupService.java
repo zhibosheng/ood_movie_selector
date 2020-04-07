@@ -53,10 +53,10 @@ public class GroupService {
         group.setGroupName(groupName);
         group.setGroupDescription(groupDescription);
         Group res = groupDao.save(group);
-        Set<Group> ownGroupSet = user.getOwnGroups();
+        Set<Group> ownGroupSet = userService.getOwnGroups(user);
         ownGroupSet.add(res);
         user.setOwnGroups(ownGroupSet);
-        Set<Group> joinGroupSet = user.getJoinGroups();
+        Set<Group> joinGroupSet = userService.getJoinGroups(user);
         joinGroupSet.add(res);
         user.setJoinGroups(joinGroupSet);
         userService.update(user);
@@ -106,7 +106,7 @@ public class GroupService {
                           group.getGroupName() + " has a new event, which is created by " + group.getModerator() + ". "+
                           "This movie watching eventwill start at " + event.getShowTime() + "." +
                           "Hope you can participate.";
-        Set<User> users = group.getUsers();
+        Set<User> users = groupDao.getUsers(group);
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -133,7 +133,7 @@ public class GroupService {
                           "please clickthe link: <a href='https://aws.amazon.com/ses/'> click me </a> to participate in the voting. " +
                           "Voting will end at " + voting.getEndTime() + ", " + "please complete the voting before the end time. " +
                           "Your vote will determine the final viewing result.";;
-        Set<User> users = group.getUsers();
+        Set<User> users = groupDao.getUsers(group);
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -156,7 +156,7 @@ public class GroupService {
         String TEXTBODY = "Hi, " +
                           "Voting on the " + group.getGroupName() + " you joined has ended. " +
                           "As a result, " + event.getMovieDecision() + " became the movie of choice.";;
-        Set<User> users = group.getUsers();
+        Set<User> users = groupDao.getUsers(group);
         for(User user:users){
             String TO = user.getEmail();
             try {
@@ -179,7 +179,7 @@ public class GroupService {
         String TEXTBODY = "Hi, " +
                           group.getGroupName() + " will start watching the " + event.getMovieDecision() + " in ten minutes." +
                           "Hope you will be on time.";
-        Set<User> users = group.getUsers();
+        Set<User> users = groupDao.getUsers(group);
         for(User user:users){
             String TO = user.getEmail();
             try {

@@ -39,6 +39,8 @@ public class GroupServiceTest {
         Set<Group> ownGroups =  userService.getOwnGroups(userRecord1);
         Set<Group> joinGroups = userService.getJoinGroups(userRecord1);
         System.out.println("check groups");
+
     }
 
+    
 }

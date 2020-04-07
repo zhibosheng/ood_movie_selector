@@ -88,11 +88,13 @@ public class ScheduledTasks {
                 String[] keyValue = pair.split(":");
                 String userId = keyValue[0];
                 String ttId = keyValue[1];
-                votingResultMap.put(userId,ttId);
-                if(movieCountMap.containsKey(ttId)){
-                    movieCountMap.put(ttId,movieCountMap.get(ttId)+1);
-                }else{
-                    movieCountMap.put(ttId,1);
+                if (!ttId.equals("None")){
+                    votingResultMap.put(userId,ttId);
+                    if(movieCountMap.containsKey(ttId)){
+                        movieCountMap.put(ttId,movieCountMap.get(ttId)+1);
+                    }else{
+                        movieCountMap.put(ttId,1);
+                    }
                 }
             }
             String winnerMovie = "";

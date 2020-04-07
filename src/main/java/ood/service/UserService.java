@@ -63,20 +63,20 @@ public class UserService {
         return userDao.getJoinGroups(user);
     }
 
-    public User addOwnGroup(User user,String groupName,String groupDescription){
-        Group group = groupService.createGroup(user,groupName,groupDescription);
-        return userService.addOwnGroup(user,group);
-    }
+//    public User addOwnGroup(User user,String groupName,String groupDescription){
+//        Group group = groupService.createGroup(user,groupName,groupDescription);
+//        return userService.addOwnGroup(user,group);
+//    }
 
 
-    public User addOwnGroup(User user,Group group){
-        return userDao.addOwnGroup(user, group);
-    }
+//    public User addOwnGroup(User user,Group group){
+//        return userDao.addOwnGroup(user, group);
+//    }
 
-    public User removeOwnGroup(User user,Group group){
-
-        return userDao.deleteOwnGroup(user, group);
-    }
+//    public User removeOwnGroup(User user,Group group){
+//
+//        return userDao.deleteOwnGroup(user, group);
+//    }
 
     public User addjoinGroup(User user,Group group){
 
