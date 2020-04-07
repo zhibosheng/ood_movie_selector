@@ -30,15 +30,26 @@ public class GroupServiceTest {
 
     @Test
     public void createGroup(){
-        userRecord1.setUserName("Alice");
-        userRecord1.setEmail("12324@qq.com");
-        userRecord1.setPhone("2028538799");
-        userRecord1.setPassword("123456");
-        userService.save(userRecord1);
-        groupService.createGroup(userRecord1,"groupA","This is A");
-        Set<Group> ownGroups =  userService.getOwnGroups(userRecord1);
-        Set<Group> joinGroups = userService.getJoinGroups(userRecord1);
+//        userRecord1.setUserName("Alice");
+//        userRecord1.setEmail("12324@qq.com");
+//        userRecord1.setPhone("2028538799");
+//        userRecord1.setPassword("123456");
+//        userService.save(userRecord1);
+        groupService.createGroup(userService.getUserByName("Bob"),"Bob's group","This is bob group");
+        Set<Group> ownGroups =  userService.getOwnGroups(userService.getUserByName("Bob"));
+        for(Group g : ownGroups){
+            System.out.println(g.getGroupName());
+        }
+        Set<Group> joinGroups = userService.getJoinGroups(userService.getUserByName("Bob"));
+        for(Group g : joinGroups){
+            System.out.println(g.getGroupName());
+        }
         System.out.println("check groups");
+
+    }
+
+    @Test
+    public void getGroupWithEvent(){
 
     }
 

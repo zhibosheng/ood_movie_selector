@@ -43,6 +43,10 @@ public class GroupService {
         return groupDao.getGroupById(groupId);
     }
 
+    public Group getGroupByName(String groupName){
+        return groupDao.getGroupByName(groupName);
+    }
+
     public Group getGroupWithEvent(long groupId){
         return groupDao.getGroupWithEvent(groupId);
     }
