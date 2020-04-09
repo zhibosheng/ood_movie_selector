@@ -17,7 +17,7 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
-    @RequestMapping(value = "/group/{userId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/group/{groupId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group getGroupById(@PathVariable(name = "groupId") long groupId){
         return groupService.getGroupById(groupId);
     }
@@ -51,7 +51,7 @@ public class GroupController {
     public boolean sendInviteGroupEmail(@RequestBody Group group, String email){ return groupService.sendInviteGroupEmail(group, email);}
 
     @RequestMapping(value = "/group/default",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public HashMap getDefaultMoies(){
-        return groupService.getDefaultMoies();
+    public HashMap getDefaultMovies(){
+        return groupService.getDefaultMovies();
     }
 }

@@ -33,7 +33,7 @@ public class MovieAPIService {
         defaultMovies.put("Anime Series","tt6105098");
     }
 
-    public HashMap getDefaultMoies(){
+    public HashMap getDefaultMovies(){
         return defaultMovies;
     }
 

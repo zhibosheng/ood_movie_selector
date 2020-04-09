@@ -95,8 +95,8 @@ public class GroupService {
 
 //    public List<User> getGroupWithUsers(Group group){ return groupDao.getGroupWithUsers(group);}
 
-    public HashMap getDefaultMoies(){
-        return movieAPIService.getDefaultMoies();
+    public HashMap getDefaultMovies(){
+        return movieAPIService.getDefaultMovies();
     }
 
     public boolean sendStartEventEmail(Group group, Event event){

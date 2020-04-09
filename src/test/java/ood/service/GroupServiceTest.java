@@ -30,10 +30,10 @@ public class GroupServiceTest {
 
     @Test
     public void createGroup(){
-//        userRecord1.setUserName("Alice");
-//        userRecord1.setEmail("12324@qq.com");
-//        userRecord1.setPhone("2028538799");
-//        userRecord1.setPassword("123456");
+//        userRecord1.setUserName("Bob");
+//        userRecord1.setEmail("7788@qq.com");
+//        userRecord1.setPhone("2097896879");
+//        userRecord1.setPassword("password");
 //        userService.save(userRecord1);
         groupService.createGroup(userService.getUserByName("Bob"),"Bob's group","This is bob group");
         Set<Group> ownGroups =  userService.getOwnGroups(userService.getUserByName("Bob"));
