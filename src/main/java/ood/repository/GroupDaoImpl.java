@@ -91,6 +91,23 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
+    public Group getGroupByName(String groupName){
+
+        String hql = "FROM Group where groupName = :name";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Group> query = session.createQuery(hql);
+            query.setParameter("name", groupName);
+
+            Group group = query.uniqueResult();
+            if (group != null) {
+                logger.debug(group.toString());
+            }
+            return group;
+        }
+    }
+
+    @Override
     public Group getGroupWithEvent(long groupId){
 
         String hql = "FROM Group as g left join fetch g.events where g.groupId = :id";

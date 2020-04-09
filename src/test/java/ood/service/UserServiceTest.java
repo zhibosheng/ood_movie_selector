@@ -19,17 +19,20 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GroupService groupService;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private User userRecord1 = new User();
 
     @Before
     public void setup() {
-        userRecord1.setUserName("Alice");
-        userRecord1.setEmail("12324@qq.com");
-        userRecord1.setPhone("2028538799");
-        userRecord1.setPassword("123456");
-        userService.save(userRecord1);
+//        userRecord1.setUserName("Alice");
+//        userRecord1.setEmail("12324@qq.com");
+//        userRecord1.setPhone("2028538799");
+//        userRecord1.setPassword("123456");
+//        userService.save(userRecord1);
     }
 
     @Test
@@ -50,8 +53,20 @@ public class UserServiceTest {
         Assert.assertEquals(userService.getUserByCredentials(userRecord1.getUserName(), userRecord1.getPassword()).getPhone(), "2028538799");
     }
 
+    @Test
+    public void addJoinGroup(){
+        groupService.createGroup(userService.getUserByName("Alice"),"test","test group for UserServiceTest");
+        userService.addjoinGroup(userService.getUserByName("dwang"),groupService.getGroupByName("test"));
+    }
+
+    @Test
+    public void leaveJoinGroup(){
+        userService.leaveJoinGroup(userService.getUserByName("dwang"),groupService.getGroupByName("test"));
+    }
+
     @After
     public void cleanUp(){
-        userService.delete(userRecord1);
+        //userService.delete(userRecord1);
+        //groupService.delete(groupService.getGroupByName("test"));
     }
 }

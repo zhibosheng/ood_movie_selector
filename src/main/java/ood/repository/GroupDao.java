@@ -13,6 +13,7 @@ public interface GroupDao {
     Group update(Group group);
     boolean delete(Group group);
     Group getGroupById(long groupId);
+    Group getGroupByName(String groupName);
     Group getGroupWithEvent(long groupId);
     List<Group> getAllGroups();
     List<Event> getHistory(Group group);
