@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping(value = ("/auth"))
@@ -54,7 +55,10 @@ public class Authentication {
             logger.error(msg);
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).body(msg);
         }
-        return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
+//        return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenKeyWord + ":" + tokenType + " " + token);
+        HashMap<String, String> tokenJson = new HashMap<>();
+        tokenJson.put(tokenKeyWord,token);
+        return ResponseEntity.status(HttpServletResponse.SC_OK).body(tokenJson);
         //return ResponseEntity.status(HttpServletResponse.SC_OK).body("Login successfully!!!");
     }
 
