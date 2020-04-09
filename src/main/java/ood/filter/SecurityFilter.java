@@ -42,6 +42,7 @@ public class SecurityFilter implements Filter {
             String token = req.getHeader("Authorization").replaceAll("^(.*?) ", "");
             if (token == null || token.isEmpty()) return statusCode;
             Claims claims = JwtUtil.decodeJwtToken(token);
+            statusCode = HttpServletResponse.SC_ACCEPTED;
 //            String allowedResources = "/";
 //            switch(verb) {
 //                case "GET"    : allowedResources = (String)claims.get("allowedReadResources");   break;
