@@ -3,6 +3,7 @@ package ood.controller;
 
 import ood.model.Group;
 import ood.model.User;
+import ood.service.GroupService;
 import ood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,6 +16,8 @@ import java.util.Set;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping(value = "/user/{userId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public User getUserById(@PathVariable(name = "userId") long userId){
@@ -52,10 +55,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/ownGroup",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Set<Group> getOwnGroups(User user){ return userService.getOwnGroups(user);}
+    public Set<Group> getOwnGroups(@RequestBody User user){ return userService.getOwnGroups(user);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Set<Group> getJoinGroups(User user){ return userService.getJoinGroups(user);}
+    public Set<Group> getJoinGroups(@RequestBody User user){ return userService.getJoinGroups(user);}
 
 //    @RequestMapping(value = "/user/ownGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
 //    public User addOwnGroup(@RequestBody User user,String groupName,String groupDescription){ return userService.addOwnGroup(user,groupName,groupDescription);}
@@ -67,9 +70,13 @@ public class UserController {
 //    public User removeOwnGroup(@RequestBody User user, Group group){ return userService.removeOwnGroup(user,group);}
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User joinGroup(@RequestBody User user, Group group){ return userService.addjoinGroup(user,group);}
+    public User joinGroup(@RequestParam String userName, @RequestParam String groupName){
+        return userService.addjoinGroup(userService.getUserByName(userName),groupService.getGroupByName(groupName));
+    }
 
     @RequestMapping(value = "/user/joinGroup",method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public User leaveGroup(@RequestBody User user, Group group){ return userService.leaveJoinGroup(user,group);}
+    public User leaveGroup(@RequestParam String userName, @RequestParam String groupName){
+        return userService.leaveJoinGroup(userService.getUserByName(userName),groupService.getGroupByName(groupName));
+    }
 
 }

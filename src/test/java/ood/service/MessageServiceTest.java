@@ -26,7 +26,7 @@ public class MessageServiceTest {
                 "If you already have an account, please log in to join this new group.</p>";
         String TEXTBODY = "Message from movieSelector website. This is a website for friends and family" +
                 "to choose movies to watch. Here you can join different groups, vote on movie" +
-                "watching activities and browse related information.";;
+                "watching activities and browse related information.";
         try{
             messageService.sendEmail(TO,SUBJECT,HTMLBODY,TEXTBODY);
         } catch (Exception ex){

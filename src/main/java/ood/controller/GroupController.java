@@ -4,6 +4,7 @@ import ood.model.Event;
 import ood.model.Group;
 import ood.model.User;
 import ood.service.GroupService;
+import ood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ import java.util.List;
 public class GroupController {
     @Autowired
     GroupService groupService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/group/{groupId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group getGroupById(@PathVariable(name = "groupId") long groupId){
@@ -38,8 +41,11 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/creation",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Group createGroup(@RequestBody User user,String groupName, String groupDescription){
-        return groupService.createGroup(user,groupName,groupDescription);
+    public Group createGroup(@RequestParam String userName, @RequestParam String groupName, @RequestParam String groupDescription){
+//        System.out.println(userName);
+//        System.out.println(groupName);
+//        System.out.println(groupDescription);
+        return groupService.createGroup(userService.getUserByName(userName),groupName,groupDescription);
     }
 
     @RequestMapping(value = "/group/history",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -48,7 +54,9 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/inviteGroupEmail",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public boolean sendInviteGroupEmail(@RequestBody Group group, String email){ return groupService.sendInviteGroupEmail(group, email);}
+    public boolean sendInviteGroupEmail(@RequestParam String groupName, @RequestParam String email){
+        return groupService.sendInviteGroupEmail(groupService.getGroupByName(groupName), email);
+    }
 
     @RequestMapping(value = "/group/default",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public HashMap getDefaultMovies(){

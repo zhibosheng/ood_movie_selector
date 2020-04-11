@@ -2,6 +2,7 @@ package ood.controller;
 
 import ood.model.User;
 import ood.model.Voting;
+import ood.service.UserService;
 import ood.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,6 +15,8 @@ import java.time.OffsetDateTime;
 public class VotingController {
     @Autowired
     VotingService votingService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/voting/{votingId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Voting getVotingById(@PathVariable(name = "votingId") long votingId){
@@ -36,18 +39,18 @@ public class VotingController {
     }
 
     @RequestMapping(value = "/voting/startTime",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Voting changeStartTime(@RequestBody Voting voting, OffsetDateTime startTime){
-        return votingService.changeStartTime(voting,startTime);
+    public Voting changeStartTime(@RequestParam long votingId, @RequestParam OffsetDateTime startTime){
+        return votingService.changeStartTime(votingService.getVotingById(votingId),startTime);
     }
 
     @RequestMapping(value = "/voting/endTime",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Voting changeEndTime(@RequestBody Voting voting, OffsetDateTime endTime){
-        return votingService.changeEndTime(voting,endTime);
+    public Voting changeEndTime(@RequestParam long votingId, @RequestParam OffsetDateTime endTime){
+        return votingService.changeEndTime(votingService.getVotingById(votingId),endTime);
     }
 
     @RequestMapping(value = "/voting/movie",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Voting voteForMovie(@RequestBody User user, Voting voting, String ttId){
-        return votingService.voteForMovie(user,voting,ttId);
+    public Voting voteForMovie(@RequestParam String userName, @RequestParam long votingId, @RequestParam String ttId){
+        return votingService.voteForMovie(userService.getUserByName(userName),votingService.getVotingById(votingId),ttId);
     }
 
 }
