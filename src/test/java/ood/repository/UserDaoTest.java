@@ -33,10 +33,10 @@ public class UserDaoTest {
     public void setup() {
 
 
-//        userRecord1.setUserName("Alice");
-//        userRecord1.setEmail("12324@qq.com");
-//        userRecord1.setPhone("2028538799");
-//        userRecord1.setPassword("123456");
+//        userRecord1.setUserName("Mingqian");
+//        userRecord1.setEmail("630616898@qq.com");
+//        userRecord1.setPhone("1804652760");
+//        userRecord1.setPassword("whatever");
 //
 //        userRecord2.setUserName("Bob");
 //        userRecord2.setEmail("7788@qq.com");
@@ -151,19 +151,16 @@ public class UserDaoTest {
     public void leaveGroup(){
 
 
-        UserDao.leaveJoinGroup(UserDao.getUserById(242), GroupDao.getGroupById(252));
+        UserDao.leaveJoinGroup(UserDao.getUserById(258), GroupDao.getGroupById(253));
         //Assert.assertEquals(GroupDao.getGroupById(235).getUsers().size(),0);
 
     }
 
     @Test
-    public void addOwnGroup(){
-        User u = UserDao.getUserById(235);
-        groupRecord1.setModerator(userRecord2);
-        groupRecord1.setGroupName("groupAdded");
-        groupRecord1.setGroupDescription("This is used to test addOwnGroup()");
-        GroupDao.save(groupRecord1);
-        UserDao.addJoinGroup(u,groupRecord1);
+    public void addJoinGroup(){
+
+        UserDao.addJoinGroup(UserDao.getUserByName("Mingqian"),GroupDao.getGroupByName("groupA"));
+
     }
 
     @After

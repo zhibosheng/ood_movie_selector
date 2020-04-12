@@ -35,7 +35,7 @@ public class GroupServiceTest {
 //        userRecord1.setPhone("2097896879");
 //        userRecord1.setPassword("password");
 //        userService.save(userRecord1);
-        groupService.createGroup(userService.getUserByName("Bob"),"Bob's group","This is bob group");
+        groupService.createGroup(userService.getUserByName("Bob"),"Bob's group8","This is bob group8");
         Set<Group> ownGroups =  userService.getOwnGroups(userService.getUserByName("Bob"));
         for(Group g : ownGroups){
             System.out.println(g.getGroupName());

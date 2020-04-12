@@ -80,7 +80,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User getUserByName(String userName) {
+    public synchronized User getUserByName(String userName) {
         if (userName == null) return null;
 
         String hql = "FROM User where lower(userName) = :name";
@@ -167,7 +167,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Set<Group> getJoinGroups (User user){
+    public synchronized Set<Group> getJoinGroups (User user){
             String hql = "SELECT g FROM Group g left JOIN fetch g.users u where u.userId = :id";
 
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -177,6 +177,8 @@ public class UserDaoImpl implements UserDao {
                 for(Group u : query.list()){
                     set.add(u);
                 }
+
+                session.close();
                 return set;
             }
         }
@@ -271,21 +273,22 @@ public class UserDaoImpl implements UserDao {
 //    }
 
     @Override
-    public User addJoinGroup(User user, Group group){
+    public  User addJoinGroup(User user, Group group){
         Transaction transaction = null;
         try{
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
 
-            Set<Group> joinGroupSet = getJoinGroups(user);
 
-            joinGroupSet.add(group);
-            user.setJoinGroups(joinGroupSet);
+                Set<Group> joinGroupSet = user.getJoinGroups();
+                System.out.println(joinGroupSet.size());
+                joinGroupSet.add(group);
+                user.setJoinGroups(joinGroupSet);
+                session.update(user);
 
-            //user.getJoinGroups().add(group);
-            //group.getUsers().add(user);
 
-            session.update(user);
+
+
 
             transaction.commit();
         }catch (Exception e){
@@ -303,7 +306,7 @@ public class UserDaoImpl implements UserDao {
             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
             transaction = session.beginTransaction();
 
-            Set<Group> joinGroupSet = getJoinGroups(user);
+            Set<Group> joinGroupSet = user.getJoinGroups();
 
             joinGroupSet.remove(group);
             user.setJoinGroups(joinGroupSet);

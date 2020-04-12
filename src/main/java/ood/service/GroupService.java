@@ -5,6 +5,7 @@ import ood.model.Group;
 import ood.model.User;
 import ood.model.Voting;
 import ood.repository.GroupDao;
+import ood.repository.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,13 @@ public class GroupService {
     private GroupDao groupDao;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
 
     @Autowired
     private MessageService messageService;
@@ -57,13 +64,15 @@ public class GroupService {
         group.setGroupName(groupName);
         group.setGroupDescription(groupDescription);
         Group res = groupDao.save(group);
-        Set<Group> ownGroupSet = userService.getOwnGroups(user);
-        ownGroupSet.add(res);
-        user.setOwnGroups(ownGroupSet);
-        Set<Group> joinGroupSet = userService.getJoinGroups(user);
-        joinGroupSet.add(res);
-        user.setJoinGroups(joinGroupSet);
-        userService.update(user);
+//        Set<Group> ownGroupSet = userService.getOwnGroups(user);
+//        ownGroupSet.add(res);
+//        user.setOwnGroups(ownGroupSet);
+        //userService.update(user);
+       // Set<Group> joinGroupSet = userService.getJoinGroups(user);
+       // joinGroupSet.add(res);
+        //user.setJoinGroups(joinGroupSet);
+        userDao.addJoinGroup(userDao.getUserByName(user.getUserName()),groupService.getGroupByName(groupName));
+        //userService.update(user);
         return res;
     }
 

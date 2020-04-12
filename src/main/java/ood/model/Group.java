@@ -29,7 +29,7 @@ public class Group {
     @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
     private Event lastEvent;
 
-    @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
@@ -137,6 +137,6 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Group group = (Group) o;
-        return groupId == group.groupId;
+        return groupId == group.groupId ;
     }
 }
