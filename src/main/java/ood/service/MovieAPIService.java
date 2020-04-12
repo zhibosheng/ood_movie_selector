@@ -28,7 +28,7 @@ public class MovieAPIService {
         defaultMovies.put("Avenger Series","tt0848228");
         defaultMovies.put("SpiderMan Series","tt0145487");
         defaultMovies.put("Godfather Series","tt0068646");
-        defaultMovies.put("Star Wars Series","tt252733");
+        defaultMovies.put("Star Wars Series","tt2527338");
         defaultMovies.put("Matrix Series","tt0133093");
         defaultMovies.put("Anime Series","tt6105098");
     }

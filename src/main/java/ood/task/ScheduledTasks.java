@@ -30,10 +30,10 @@ public class ScheduledTasks {
     @Autowired
     private VotingService votingService;
 
-    @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() {
-        System.out.println("time now is：" + dateFormat.format(new Date()));
-    }
+//    @Scheduled(fixedRate = 5000)
+//    public void reportCurrentTime() {
+//        System.out.println("time now is：" + dateFormat.format(new Date()));
+//    }
 
     @Scheduled(cron = "0 0 0 * * ?")
     public void checkShowTime(){

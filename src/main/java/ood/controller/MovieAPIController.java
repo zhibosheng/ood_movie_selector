@@ -24,8 +24,11 @@ public class MovieAPIController {
     }
 
     @RequestMapping(value = "/movie/find/{movieName}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public String findMovie(@PathVariable(name = "movieName") String movieName){
-        return movieAPIService.findMovie(movieName);
+    public HashMap findMovie(@PathVariable(name = "movieName") String movieName){
+        HashMap ttId = new HashMap();
+        ttId.put("ttId",movieAPIService.findMovie(movieName));
+        return ttId;
+//        return movieAPIService.findMovie(movieName);
     }
 
     @RequestMapping(value = "/movie/moreLikeThis/{ttId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -44,7 +47,10 @@ public class MovieAPIController {
     }
 
     @RequestMapping(value = "/movie/trailerUrl/{ttId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public URL getTrailerUrl(@PathVariable(name = "ttId") String ttId){
-        return movieAPIService.getTrailerUrl(ttId);
+    public HashMap getTrailerUrl(@PathVariable(name = "ttId") String ttId){
+        HashMap trailerUrl = new HashMap();
+        trailerUrl.put("url",movieAPIService.getTrailerUrl(ttId));
+        return trailerUrl;
+//        return movieAPIService.getTrailerUrl(ttId);
     }
 }
