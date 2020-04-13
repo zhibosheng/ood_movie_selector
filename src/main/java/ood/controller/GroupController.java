@@ -25,6 +25,12 @@ public class GroupController {
         return groupService.getGroupById(groupId);
     }
 
+    @RequestMapping(value = "/group/event",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Group getGroupWithEvent(@RequestParam long groupId){
+        return groupService.getGroupWithEvent(groupId);
+    }
+
+
     @RequestMapping(value = "/group",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group save(@RequestBody Group group){
         return groupService.save(group);
@@ -49,7 +55,8 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/history",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<Event> getHistory(@RequestBody Group group){
+    public List<Event> getHistory(@RequestParam String groupName){
+        Group group = groupService.getGroupByName(groupName);
         return groupService.getHistory(group);
     }
 
@@ -62,4 +69,5 @@ public class GroupController {
     public HashMap getDefaultMovies(){
         return groupService.getDefaultMovies();
     }
+
 }

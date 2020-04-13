@@ -9,6 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 @RestController
@@ -39,12 +42,12 @@ public class EventController {
     }
 
     @RequestMapping(value = "/event/creation",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Event createGroup(@RequestParam String groupName, @RequestParam OffsetDateTime createTime, @RequestParam OffsetDateTime showTime){
-        return eventService.createEvent(groupService.getGroupByName(groupName),createTime,showTime);
+    public Event createEvent(@RequestParam String groupName, @RequestParam Date showTime){
+        return eventService.createEvent(groupService.getGroupByName(groupName),showTime.toInstant().atOffset(ZoneOffset.UTC));
     }
 
     @RequestMapping(value = "/event/showtime",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Event changeShowTime(@RequestParam long eventId, @RequestParam OffsetDateTime showTime){
-        return eventService.changeShowTime(eventService.getEventById(eventId),showTime);
+    public Event changeShowTime(@RequestParam long eventId, @RequestParam Date showTime){
+        return eventService.changeShowTime(eventService.getEventById(eventId),showTime.toInstant().atOffset(ZoneOffset.UTC));
     }
 }
