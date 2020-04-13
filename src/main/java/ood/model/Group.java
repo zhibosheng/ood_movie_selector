@@ -30,6 +30,7 @@ public class Group {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
+    @JsonIgnore
     private Event lastEvent;
 
     @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
