@@ -21,6 +21,7 @@ import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ApplicationBoot.class)
@@ -125,7 +126,9 @@ public class GroupDaoTest {
     @Test
     public void getGroupWithEvent(){
         Group g = groupDao.getGroupWithEvent(253);
-        System.out.println(g.getLastEvent().getShowTime());
+        for(Event e : g.getEvents()) {
+            System.out.println(e.getShowTime());
+        }
 
     }
 

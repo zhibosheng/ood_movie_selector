@@ -14,6 +14,7 @@ public class Event {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "voting_id",referencedColumnName = "voting_id")
+    @JsonIgnore
     private Voting voting;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,6 +36,7 @@ public class Event {
     private String movieDecision;
 
     @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Group lastEventGroup;
 
 

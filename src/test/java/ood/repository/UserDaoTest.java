@@ -159,7 +159,7 @@ public class UserDaoTest {
     @Test
     public void addJoinGroup(){
 
-        UserDao.addJoinGroup(UserDao.getUserByName("Mingqian"),GroupDao.getGroupByName("groupA"));
+        UserDao.addJoinGroup(UserDao.getUserByName("Mingqian"),GroupDao.getGroupByName("test"));
 
     }
 

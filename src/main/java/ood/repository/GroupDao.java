@@ -15,6 +15,7 @@ public interface GroupDao {
     Group getGroupById(long groupId);
     Group getGroupByName(String groupName);
     Group getGroupWithEvent(long groupId);
+    Group getGroupWithUser(long groupId);
     List<Group> getAllGroups();
     List<Event> getHistory(Group group);
     Set<User> getUsers(Group group);

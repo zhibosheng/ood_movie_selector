@@ -30,14 +30,15 @@ public class Group {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "last_event_id",referencedColumnName = "event_id")
+    @JsonIgnore
     private Event lastEvent;
 
     @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
+    //@JsonIgnore
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JsonIgnore
+   // @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
 

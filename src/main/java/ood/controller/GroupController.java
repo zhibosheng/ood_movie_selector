@@ -30,6 +30,11 @@ public class GroupController {
         return groupService.getGroupWithEvent(groupId);
     }
 
+    @RequestMapping(value = "/group/user",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Group getGroupWithUser(@RequestParam long groupId){
+        return groupService.getGroupWithUser(groupId);
+    }
+
 
     @RequestMapping(value = "/group",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group save(@RequestBody Group group){

@@ -125,6 +125,23 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
+    public Group getGroupWithUser(long groupId){
+
+        String hql = "FROM Group as g left join fetch g.users where g.groupId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Group> query = session.createQuery(hql);
+            query.setParameter("id", groupId);
+
+            Group group = query.uniqueResult();
+            if (group != null) {
+                logger.debug(group.toString());
+            }
+            return group;
+        }
+    }
+
+    @Override
     public List<Group> getAllGroups(){
         String hql = "FROM Group ";
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
