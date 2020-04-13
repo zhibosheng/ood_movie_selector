@@ -37,7 +37,7 @@ public class Group {
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-
+    @JsonIgnore
     private Set<Event> events = new HashSet<>();
 
 
@@ -132,7 +132,7 @@ public class Group {
 //        }
 //        return str;
 //    }
-//
+
     @Override
     public int hashCode() { return Objects.hash(groupId,groupName);}
 

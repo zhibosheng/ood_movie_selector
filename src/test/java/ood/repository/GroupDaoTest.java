@@ -122,15 +122,12 @@ public class GroupDaoTest {
 
     }
 
-//    @Test
-//    public void getGroupWithEvent(){
-//        groupDao.save(groupRecord1);
-//        eventDao.save(eventRecord1);
-//        eventDao.save(eventRecord2);
-//        long id = groupRecord1.getGroupId();
-//        Assert.assertEquals(groupDao.getGroupWithEvent(id).getEvents().size(), 2);
-//
-//    }
+    @Test
+    public void getGroupWithEvent(){
+        Group g = groupDao.getGroupWithEvent(253);
+        System.out.println(g.getLastEvent().getShowTime());
+
+    }
 
 
     @Test

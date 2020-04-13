@@ -12,4 +12,5 @@ public interface EventDao {
     Event getEventById(long eventId);
     List<Event> getEventByShowTime(OffsetDateTime showTime);
     Event getEventWithVoting(long eventId);
+    Event getEventWithGroup(long eventId);
 }

@@ -3,6 +3,7 @@ package ood.service;
 import ood.model.Event;
 import ood.model.Group;
 import ood.repository.EventDao;
+import ood.repository.GroupDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ import java.util.List;
 public class EventService {
     @Autowired
     private EventDao eventDao;
+
+    @Autowired
+    private GroupDao groupDao;
 
     @Autowired
     private GroupService groupService;
@@ -44,6 +48,10 @@ public class EventService {
         return eventDao.getEventWithVoting(eventId);
     }
 
+    public Event getEventWithGroup(long eventId){
+        return eventDao.getEventWithGroup(eventId);
+    }
+
     public Event createEvent(Group group, OffsetDateTime showTime){
         Date date = new Date();
         OffsetDateTime createTime = date.toInstant().atOffset(ZoneOffset.UTC);
@@ -56,7 +64,10 @@ public class EventService {
         event.setCreateTime(createTime);
         event.setShowTime(showTime);
         groupService.sendStartEventEmail(group,event);
-        return eventDao.save(event);
+        event = eventDao.save(event);
+        group.setLastEvent(event);
+        groupDao.update(group);
+        return event;
     }
 
 //    public Event selectMovies(Event event,List<String> movieArray){

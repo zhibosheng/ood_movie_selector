@@ -32,9 +32,8 @@ public class EventServiceTest {
 
     @Test
     public void createEvent(){
-        OffsetDateTime createtime = OffsetDateTime.now();
-        OffsetDateTime showtime = OffsetDateTime.now().plusDays(3);
-        eventService.createEvent(groupService.getGroupByName("Bob's group"), createtime, showtime);
+        OffsetDateTime showTime = OffsetDateTime.now().plusDays(3);
+        eventService.createEvent(groupService.getGroupByName("test"), showTime);
     }
 
     @Test

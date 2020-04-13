@@ -115,4 +115,21 @@ public class EventDaoImpl implements EventDao{
             return event;
         }
     }
+
+    @Override
+    public Event getEventWithGroup(long eventId){
+
+        String hql = "FROM Event e left join fetch e.group where e.eventId = :id";
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Event> query = session.createQuery(hql);
+            query.setParameter("id", eventId);
+
+            Event event = query.uniqueResult();
+            if (event != null) {
+                logger.debug(event.toString());
+            }
+            return event;
+        }
+    }
 }

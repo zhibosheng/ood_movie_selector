@@ -27,6 +27,6 @@ public class VotingServiceTest {
     public void createVoting(){
         OffsetDateTime startTime = OffsetDateTime.now().plusDays(1);
         OffsetDateTime endTime = startTime.plusDays(7);
-        votingService.createVoting(startTime,endTime,eventService.getEventById(59),eventService.getEventById(59).getGroup());
+        votingService.createVoting(startTime,endTime,eventService.getEventById(60),eventService.getEventWithGroup(60).getGroup());
     }
 }

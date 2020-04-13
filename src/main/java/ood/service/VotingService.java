@@ -4,6 +4,7 @@ import ood.model.Event;
 import ood.model.Group;
 import ood.model.User;
 import ood.model.Voting;
+import ood.repository.EventDao;
 import ood.repository.VotingDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,9 @@ import java.util.Map;
 public class VotingService {
     @Autowired
     private VotingDao votingDao;
+
+    @Autowired
+    private EventDao eventDao;
 
     @Autowired
     private GroupService groupService;
@@ -46,8 +50,11 @@ public class VotingService {
         voting.setStartTime(startTime);
         voting.setEndTime(endTime);
         voting.setVotingEvent(event);
+        voting = votingDao.save(voting);
         groupService.sendStartVotingEmail(group,event,voting);
-        return votingDao.save(voting);
+        event.setVoting(voting);
+        eventDao.update(event);
+        return voting;
     }
 
     public Voting changeStartTime(Voting voting, OffsetDateTime startTime){

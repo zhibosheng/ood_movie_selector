@@ -1,4 +1,6 @@
 package ood.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
@@ -16,6 +18,7 @@ public class Event {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
+    @JsonIgnore
     private Group group;
 
     //ttId1,ttId2
