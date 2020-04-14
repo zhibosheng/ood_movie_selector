@@ -26,6 +26,16 @@ public class EventController {
         return eventService.getEventById(eventId);
     }
 
+    @RequestMapping(value = "/event/group/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Event getEventWithGroup(@PathVariable(name = "eventId") long eventId){
+        return eventService.getEventWithGroup(eventId);
+    }
+
+    @RequestMapping(value = "/event/voting/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Event getEventWithVoting(@PathVariable(name = "eventId") long eventId){
+        return eventService.getEventWithVoting(eventId);
+    }
+
     @RequestMapping(value = "/event",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event save(@RequestBody Event event){
         return eventService.save(event);

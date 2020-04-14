@@ -58,6 +58,10 @@ public class GroupService {
         return groupDao.getGroupWithEvent(groupId);
     }
 
+    public Group getGroupWithUser(long groupId){
+        return groupDao.getGroupWithUser(groupId);
+    }
+
     public Group createGroup(User user,String groupName, String groupDescription){
         Group group = new Group();
         group.setModerator(user);
