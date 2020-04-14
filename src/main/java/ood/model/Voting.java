@@ -1,4 +1,6 @@
 package ood.model;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 
@@ -8,16 +10,20 @@ public class Voting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voting_id")
+    @JsonView(View.Voting.class)
     private long votingId;
 
     @Column(name = "start_time")
+    @JsonView(View.Voting.class)
     private OffsetDateTime startTime;
 
     @Column(name = "end_time")
+    @JsonView(View.Voting.class)
     private OffsetDateTime endTime;
 
     //key1:val1,key2:val2
     @Column(name = "voting_result")
+    @JsonView(View.Voting.class)
     private String votingResult;
 
     @OneToOne(mappedBy = "voting", cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)

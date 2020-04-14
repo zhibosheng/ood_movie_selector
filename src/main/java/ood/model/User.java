@@ -3,6 +3,7 @@ package ood.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,18 +18,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+    @JsonView({View.Event.class,View.User.class})
     private long userId;
 
     @Column(name = "user_name")
+    @JsonView({View.Event.class,View.User.class})
     private String userName;
 
     @Column(name = "password")
+    @JsonView({View.Event.class,View.User.class})
     private String password;
 
     @Column(name = "email")
+    @JsonView({View.Event.class,View.User.class})
     private String email;
 
     @Column(name = "phone")
+    @JsonView({View.Event.class,View.User.class})
     private String phone;
 
     @OneToMany(mappedBy = "moderator", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

@@ -1,7 +1,9 @@
 package ood.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import ood.model.Event;
 import ood.model.Group;
+import ood.model.View;
 import ood.service.EventService;
 import ood.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +28,13 @@ public class EventController {
         return eventService.getEventById(eventId);
     }
 
+    @JsonView(View.Event.class)
     @RequestMapping(value = "/event/group/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event getEventWithGroup(@PathVariable(name = "eventId") long eventId){
         return eventService.getEventWithGroup(eventId);
     }
 
+    @JsonView(View.Voting.class)
     @RequestMapping(value = "/event/voting/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event getEventWithVoting(@PathVariable(name = "eventId") long eventId){
         return eventService.getEventWithVoting(eventId);

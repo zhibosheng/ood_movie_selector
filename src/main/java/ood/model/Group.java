@@ -3,6 +3,7 @@ package ood.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,16 +17,20 @@ public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "group_id")
+    @JsonView({View.Event.class, View.Group.class,View.User.class})
     private long groupId;
 
     @Column(name = "group_name")
+    @JsonView({View.Event.class, View.Group.class,View.User.class})
     private String groupName;
 
     @Column(name = "group_description")
+    @JsonView({View.Event.class, View.Group.class,View.User.class})
     private String groupDescription;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "moderator_id")
+    @JsonView(View.Event.class)
     private User moderator;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -35,10 +40,12 @@ public class Group {
 
     @ManyToMany(mappedBy = "joinGroups",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //@JsonIgnore
+    @JsonView(View.User.class)
     private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
    // @JsonIgnore
+    @JsonView( View.Group.class)
     private Set<Event> events = new HashSet<>();
 
 

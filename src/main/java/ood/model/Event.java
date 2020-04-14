@@ -1,5 +1,6 @@
 package ood.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
@@ -10,29 +11,36 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
+    @JsonView({View.Event.class, View.Group.class,View.Voting.class})
     private long eventId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "voting_id",referencedColumnName = "voting_id")
-    @JsonIgnore
+    @JsonView(View.Voting.class)
+    //@JsonIgnore
     private Voting voting;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
-    @JsonIgnore
+    @JsonView({View.Event.class})
+    //@JsonIgnore
     private Group group;
 
     //ttId1,ttId2
     @Column(name = "selected_movies")
+    @JsonView({View.Event.class, View.Group.class,View.Voting.class})
     private String selectedMovies;
 
     @Column(name = "create_time")
+    @JsonView({View.Event.class, View.Group.class,View.Voting.class})
     private OffsetDateTime createTime;
 
     @Column(name = "show_time")
+    @JsonView({View.Event.class, View.Group.class,View.Voting.class})
     private OffsetDateTime showTime;
 
     @Column(name = "movie_decision")
+    @JsonView({View.Event.class, View.Group.class,View.Voting.class})
     private String movieDecision;
 
     @OneToOne(mappedBy = "lastEvent", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)

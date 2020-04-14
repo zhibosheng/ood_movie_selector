@@ -1,8 +1,10 @@
 package ood.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import ood.model.Event;
 import ood.model.Group;
 import ood.model.User;
+import ood.model.View;
 import ood.service.GroupService;
 import ood.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,13 @@ public class GroupController {
         return groupService.getGroupById(groupId);
     }
 
+    @JsonView(View.Group.class)
     @RequestMapping(value = "/group/event",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group getGroupWithEvent(@RequestParam long groupId){
         return groupService.getGroupWithEvent(groupId);
     }
 
+    @JsonView(View.User.class)
     @RequestMapping(value = "/group/user",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Group getGroupWithUser(@RequestParam long groupId){
         return groupService.getGroupWithUser(groupId);
