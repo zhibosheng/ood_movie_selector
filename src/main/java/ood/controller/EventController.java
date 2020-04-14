@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 
 @RestController
@@ -23,6 +26,7 @@ public class EventController {
     @Autowired
     GroupService groupService;
 
+    @JsonView(View.Event.class)
     @RequestMapping(value = "/event/{eventId}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event getEventById(@PathVariable(name = "eventId")  long eventId){
         return eventService.getEventById(eventId);
@@ -55,11 +59,13 @@ public class EventController {
         return eventService.delete(event);
     }
 
+    @JsonView(View.Event.class)
     @RequestMapping(value = "/event/creation",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Event createEvent(@RequestParam String groupName, @RequestParam Date showTime){
+    public Event createEvent(@RequestParam String groupName, @RequestParam Date showTime) {
         return eventService.createEvent(groupService.getGroupByName(groupName),showTime.toInstant().atOffset(ZoneOffset.UTC));
     }
 
+    @JsonView(View.Event.class)
     @RequestMapping(value = "/event/showtime",method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
     public Event changeShowTime(@RequestParam long eventId, @RequestParam Date showTime){
         return eventService.changeShowTime(eventService.getEventById(eventId),showTime.toInstant().atOffset(ZoneOffset.UTC));
