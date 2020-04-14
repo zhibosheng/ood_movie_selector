@@ -64,4 +64,11 @@ public class EventController {
     public Event changeShowTime(@RequestParam long eventId, @RequestParam Date showTime){
         return eventService.changeShowTime(eventService.getEventById(eventId),showTime.toInstant().atOffset(ZoneOffset.UTC));
     }
+
+    @RequestMapping(value = "/event/addmovielist",method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Event addMovieList(@RequestParam long eventId, @RequestParam String movieList){
+        Event event = eventService.getEventById(eventId);
+        event.setSelectedMovies(movieList);
+        return eventService.update(event);
+    }
 }
