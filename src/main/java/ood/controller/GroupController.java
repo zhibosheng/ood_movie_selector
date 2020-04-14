@@ -63,6 +63,7 @@ public class GroupController {
         return groupService.createGroup(userService.getUserByName(userName),groupName,groupDescription);
     }
 
+    @JsonView(View.Event.class)
     @RequestMapping(value = "/group/history",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<Event> getHistory(@RequestParam String groupName){
         Group group = groupService.getGroupByName(groupName);
